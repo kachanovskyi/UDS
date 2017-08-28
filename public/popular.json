@@ -1,0 +1,38 @@
+{
+  "phrases": [
+    {
+      "type": "phrase",
+      "content": "some phrase",
+      "counter": "2"
+    },
+    {
+      "type": "phrase",
+      "content": "some second phrase",
+      "counter": "3"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "block",
+      "content": "some block"
+    },
+    {
+      "type": "block",
+      "content": "some second block"
+    }
+  ],
+
+  "buttons": [
+    {
+      "type": "button",
+      "content": "some button",
+      "counter": "5"
+    },
+    {
+      "type": "button",
+      "content": "some second button",
+      "counter": "4"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+.dropdown.btn-group button {
+    padding: 0;
+    border: none;
+    background: #ffffff !important;
+    box-shadow: none !important;
+}
+
+.dropdown.btn-group button .caret {
+    display: none;
+}
+
+.btn-group.open .dropdown-toggle {
+    box-shadow: none;
+    background: #ffffff;
+}
+
+.btn-group.open .dropdown-toggle .settings-icon {
+    opacity: 1;
+}
+
+.open > .dropdown-menu {
+    padding: 0;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu > li > a {
+    padding: 10px 15px;
+}
+
+.dropdown-toggle .settings-icon {
+    opacity: .6;
+    transition: .1s ease-in-out;
+}
+
+.dropdown-toggle .settings-icon:hover {
+    opacity: 1;
+}

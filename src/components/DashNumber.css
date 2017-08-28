@@ -1,0 +1,25 @@
+.DashNumber h2.font_2 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.DashNumber .number {
+    background-color: transparent;
+    border: solid rgba(65, 186, 174, 1) 1px;
+    text-align: center;
+}
+.DashNumber .number:hover {
+    background-color: rgba(65, 186, 174, 1);
+    cursor: pointer !important;
+}
+.DashNumber .number:hover span {
+    color: #ffffff;
+}
+.DashNumber .number span {
+    font: normal normal normal 35px/1.4em arial,'ｍｓ ｐゴシック','ms pgothic','돋움',dotum,helvetica,sans-serif;
+    transition: color 0.4s ease 0s;
+    color: #2B7C74;
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+}

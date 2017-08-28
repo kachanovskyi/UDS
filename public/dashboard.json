@@ -1,0 +1,46 @@
+{
+  "statistics": {
+    "todayStats": [
+      {
+        "title": "Usuarios",
+        "amount": "100"
+      },
+      {
+        "title": "Mensajes Recibidos",
+        "amount": "999"
+      },
+      {
+        "title": "Mensajes Enviados",
+        "amount": "3"
+      }
+    ],
+    "monthStats": [
+      {
+        "title": "Usuarios",
+        "amount": "4"
+      },
+      {
+        "title": "Mensajes Recibidos",
+        "amount": "5"
+      },
+      {
+        "title": "Mensajes Enviados",
+        "amount": "6"
+      }
+    ],
+    "allStats": [
+      {
+        "title": "Usuarios",
+        "amount": "7"
+      },
+      {
+        "title": "Mensajes Recibidos",
+        "amount": "8"
+      },
+      {
+        "title": "Mensajes Enviados",
+        "amount": "9"
+      }
+    ]
+  }
+}
