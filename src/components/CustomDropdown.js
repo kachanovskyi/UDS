@@ -4,7 +4,7 @@ import {ButtonToolbar, Dropdown, MenuItem} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import './CustomDropdown.css';
 
-const CustomDropdown = ({botId, duplicate}) => {
+const CustomDropdown = ({botId, duplicate, rename}) => {
 
     return (
         <ButtonToolbar>
@@ -14,7 +14,7 @@ const CustomDropdown = ({botId, duplicate}) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="super-colors">
                     <MenuItem eventKey="1" onClick={() => {duplicate(botId)}}>Duplicate</MenuItem>
-                    <MenuItem eventKey="2">Rename</MenuItem>
+                    <MenuItem eventKey="2" onClick={() => {rename(botId)}}>Rename</MenuItem>
                     <MenuItem eventKey="3">Delete</MenuItem>
                 </Dropdown.Menu>
             </Dropdown>
