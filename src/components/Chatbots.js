@@ -17,6 +17,7 @@ class Chatbots extends Component {
 
         // this.toggleBotActivation = this.toggleBotActivation.bind(this);
         this.getBotData = this.getBotData.bind(this);
+        this.removeBot = this.removeBot.bind(this);
     };
 
     getBotData(chatbotData) {
@@ -28,6 +29,43 @@ class Chatbots extends Component {
         this.setState({
             chatbots: chatbotsTemp
         });
+    }
+
+    removeBot(index) {
+        let chatbots = [];
+
+        chatbots.push(...this.state.chatbots);
+        chatbots.splice(index, 1);
+
+        this.setState({
+            chatbots
+        });
+
+        const data = {
+            botId: index
+        };
+
+        // fetch('./chatbots.json', {
+        //     method: 'POST',
+        //     body: data
+        // })
+        //     .then((response) => response.json())
+        //     .then((responseJson) => {
+        //
+        //         let chatbots = [];
+        //
+        //         responseJson.forEach(item => {
+        //             chatbots.push(item);
+        //         });
+        //
+        //         this.setState({
+        //             chatbots
+        //         });
+        //
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
     }
 
     componentDidMount() {
@@ -64,7 +102,8 @@ class Chatbots extends Component {
                     </Col>
                     {this.state.chatbots.map((chatbot, index) => (
                         <Col md={4} lg={3} key={index}>
-                            <Chatbot img={chatbot.img} name={chatbot.name} nickname={chatbot.nickname} id={index} sendBotData={this.getBotData}/>
+                            <Chatbot img={chatbot.img} name={chatbot.name} nickname={chatbot.nickname} id={index}
+                                     sendBotData={this.getBotData} removeBot={this.removeBot}/>
                         </Col>
                     ))}
                 </div>

@@ -19,6 +19,7 @@ class Chatbot extends Component {
         this.saveName = this.saveName.bind(this);
         this.cancelRename = this.cancelRename.bind(this);
         this.cancelRenameAll = this.cancelRenameAll.bind(this);
+        this.deleteBot = this.deleteBot.bind(this);
     };
 
 
@@ -81,6 +82,11 @@ class Chatbot extends Component {
         this.cancelRename($bot);
     }
 
+    deleteBot() {
+        $($('.chatbot')[this.props.id + 1]).remove();
+        this.props.removeBot(this.props.id);
+    }
+
 
     render() {
         if (this.props.type === "add-new") {
@@ -107,7 +113,7 @@ class Chatbot extends Component {
                     </div>
                     <input type="text" name="rename-bot" className="rename-bot hidden"/>
                     <span className="settings-btn">
-                                    <CustomDropdown botId={this.props.id} duplicate={this.duplicate} rename={this.rename}/>
+                                    <CustomDropdown botId={this.props.id} duplicate={this.duplicate} rename={this.rename} deleteBot={this.deleteBot}/>
                             </span>
                     <a className="save-btn hidden" onClick={this.saveName}>Save</a>
                 </div>
