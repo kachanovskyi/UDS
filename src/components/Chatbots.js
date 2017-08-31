@@ -20,52 +20,59 @@ class Chatbots extends Component {
         this.removeBot = this.removeBot.bind(this);
     };
 
-    getBotData(chatbotData) {
-        let chatbotsTemp = [];
+    getBotData(data) {
+        fetch('./chatbots.json', {
+                method: 'POST',
+                body: data
+            }
+        )
+            .then((response) => response.json())
+            .then((responseJson) => {
 
-        chatbotsTemp.push(...this.state.chatbots);
-        chatbotsTemp.push(chatbotData);
+                let chatbots = [];
 
-        this.setState({
-            chatbots: chatbotsTemp
-        });
+                responseJson.forEach(item => {
+                    chatbots.push(item);
+                });
+
+                this.setState({
+                    chatbots
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
-    removeBot(index) {
-        let chatbots = [];
-
-        chatbots.push(...this.state.chatbots);
-        chatbots.splice(index, 1);
-
-        this.setState({
-            chatbots
-        });
+    removeBot(id) {
 
         const data = {
-            botId: index
+            botId: id
         };
 
-        // fetch('./chatbots.json', {
-        //     method: 'POST',
-        //     body: data
-        // })
-        //     .then((response) => response.json())
-        //     .then((responseJson) => {
-        //
-        //         let chatbots = [];
-        //
-        //         responseJson.forEach(item => {
-        //             chatbots.push(item);
-        //         });
-        //
-        //         this.setState({
-        //             chatbots
-        //         });
-        //
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //     });
+        fetch('./chatbots.json', {
+            method: 'POST',
+            body: data
+        }
+        )
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                let chatbots = [];
+
+                responseJson.forEach(item => {
+                    chatbots.push(item);
+                });
+
+                this.setState({
+                    chatbots
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     componentDidMount() {
@@ -102,7 +109,8 @@ class Chatbots extends Component {
                     </Col>
                     {this.state.chatbots.map((chatbot, index) => (
                         <Col md={4} lg={3} key={index}>
-                            <Chatbot img={chatbot.img} name={chatbot.name} nickname={chatbot.nickname} id={index}
+                            <Chatbot img={chatbot.img} name={chatbot.name} telegramToken={chatbot.telegramToken}
+                                     id={chatbot.id} nickname={chatbot.nickname} index={index}
                                      sendBotData={this.getBotData} removeBot={this.removeBot}/>
                         </Col>
                     ))}

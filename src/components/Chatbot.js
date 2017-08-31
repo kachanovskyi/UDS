@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Chatbot.css';
 
 import CustomDropdown from './CustomDropdown';
+import NavButton from './NavButton';
 import $ from 'jquery';
 
 class Chatbot extends Component {
@@ -19,36 +20,31 @@ class Chatbot extends Component {
         this.saveName = this.saveName.bind(this);
         this.cancelRename = this.cancelRename.bind(this);
         this.cancelRenameAll = this.cancelRenameAll.bind(this);
-        this.deleteBot = this.deleteBot.bind(this);
     };
 
-
-    duplicate(botId) {
+    duplicate() {
         this.cancelRenameAll();
 
-        const $bot = $($('.chatbot')[botId + 1]);
         const duplicated = {
-            img: $bot.find('.bot-img img').attr('src'),
-            name: $bot.find('.bot-name').text(),
-            nickname: $bot.find('.bot-nickname').text(),
+            botId: this.props.id
         };
 
         this.props.sendBotData(duplicated);
     }
 
 
-    rename(botId) {
+    rename() {
         this.cancelRenameAll();
 
-        const $bot = $($('.chatbot')[botId + 1]);
+        const $bot = $($('.chatbot')[this.props.index + 1]);
         const name = $bot.find('.bot-name').text();
         const self = this;
 
         $bot.find('.bot-info').addClass('hidden');
         $bot.find('.rename-bot')
             .val(name)
-            .keydown(function(e) {
-                if(e.which === 27) {
+            .keydown(function (e) {
+                if (e.which === 27) {
                     self.cancelRename($bot);
                 }
             })
@@ -75,18 +71,40 @@ class Chatbot extends Component {
 
 
     saveName() {
-        const $bot = $($('.chatbot')[this.props.id + 1]);
+        const $bot = $($('.chatbot')[this.props.index + 1]);
         const newName = $bot.find('.rename-bot').val();
-        $bot.find('.bot-name').text(newName);
+
+        const data = {
+            botId: this.props.id,
+            name: newName
+        };
+
+        fetch('./chatbots.json', {
+                method: 'POST',
+                body: data
+            }
+        )
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                let chatbots = [];
+
+                responseJson.forEach(item => {
+                    chatbots.push(item);
+                });
+
+                this.setState({
+                    chatbots
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
 
         this.cancelRename($bot);
     }
-
-    deleteBot() {
-        $($('.chatbot')[this.props.id + 1]).remove();
-        this.props.removeBot(this.props.id);
-    }
-
+    
 
     render() {
         if (this.props.type === "add-new") {
@@ -99,6 +117,11 @@ class Chatbot extends Component {
             )
         }
 
+        const connectBot = <NavButton className="bot-connect" text="Connect to telegram"
+                                      goTo={'/connect-bot/' + this.props.id} img="images/link-icon.svg"/>;
+        const nickname = <a className="bot-connect text-underlined">{this.props.nickname}</a>;
+
+
         return (
             <div className="chatbot">
                 <div className="inner">
@@ -107,13 +130,12 @@ class Chatbot extends Component {
                     </div>
                     <div className="bot-info">
                         <p className="bot-name">{this.props.name}</p>
-                        <a className="bot-nickname" href="#">{this.props.nickname}
-                            <img src="images/link-icon.svg"/>
-                        </a>
+                        {this.props.telegramToken ? nickname : connectBot}
                     </div>
                     <input type="text" name="rename-bot" className="rename-bot hidden"/>
                     <span className="settings-btn">
-                                    <CustomDropdown botId={this.props.id} duplicate={this.duplicate} rename={this.rename} deleteBot={this.deleteBot}/>
+                                    <CustomDropdown botId={this.props.id} index={this.props.index} duplicate={this.duplicate}
+                                                    rename={this.rename} deleteBot={this.props.removeBot}/>
                             </span>
                     <a className="save-btn hidden" onClick={this.saveName}>Save</a>
                 </div>

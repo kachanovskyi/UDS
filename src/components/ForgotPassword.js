@@ -2,8 +2,10 @@ import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import {Col} from 'react-bootstrap';
+import {notifyModalShow} from '../externalFunctions';
 
 import NotifyModal from './NofityModal';
+import $ from 'jquery';
 
 import './Login.css';
 
@@ -11,14 +13,36 @@ const Restore = () => {
 
     const formSubmitted = (e) => {
         e.preventDefault();
-        window.location.href = '/restore-password';
+        // window.location.href = '/restore-password';
+        const data = {
+            "email": $('#restorePass').val()
+        };
+        let notification = "Email you've entered is not registered. Please, enter another email.";
+
+        console.log(data);
+
+        fetch('./chatbots.json', {
+            method: 'POST',
+            body: data
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                notification = "Link for password restoration was sent to your email.";
+                notifyModalShow(notification);
+
+            })
+            .catch((error) => {
+                console.error(error);
+                notifyModalShow(notification);
+            });
         return false;
     };
 
     return (
         <div className="Login">
             <div className="row table-cell">
-                <Col xs={8} xsOffset={2} className="login-form">
+                <Col xs={8} xsOffset={2} md={6} mdOffset={3} lg={4} lgOffset={4} className="login-form">
                     <h2 className="title">Forgot your password?</h2>
                     <form onSubmit={formSubmitted}>
                         <input type="email" name="login" id="restorePass" placeholder="Your e-mail"

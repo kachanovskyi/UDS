@@ -11,7 +11,7 @@ import NotifyModal from './NofityModal';
 import $ from 'jquery';
 
 
-const Login = () => {
+const Login = ({logIn}) => {
 
     const login = (e) => {
         e.preventDefault();
@@ -29,7 +29,7 @@ const Login = () => {
 
                     // logIn(responseJson.userId, responseJson.username);
                     if ((responseJson.username === data.login) && (responseJson.pass === data.pass)) {
-                        console.log(1);
+                        logIn(responseJson.username, responseJson.pass, true)
                     } else {
                         const errorMessage = "The details you entered did not match our records. Please double-check and try again.";
                         notifyModalShow(errorMessage);
@@ -53,7 +53,7 @@ const Login = () => {
     return (
         <div className="Login">
             <div className="row table-cell">
-                <Col xs={8} xsOffset={2} className="login-form">
+                <Col xs={8} xsOffset={2} md={6} mdOffset={3} lg={4} lgOffset={4} className="login-form">
                     <h2 className="title">Welcome to UDS</h2>
                     <form onSubmit={login}>
                         <input type="email" name="login" id="inputLogin" placeholder="Your e-mail"

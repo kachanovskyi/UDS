@@ -1,0 +1,44 @@
+.Connect {
+    margin-top: 80px;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.Connect h2 {
+    color: #F2994A;
+}
+
+.Connect p {
+    margin: 0 0 30px;
+    text-align: center;
+}
+
+.Connect .bot-connect {
+    text-decoration: underline;
+}
+
+.Connect .login-btn,
+.Connect .restore-btn {
+    float: none;
+}
+
+.Connect .restore-btn {
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+}
+.Connect .restore-btn:hover {
+    text-decoration: underline;
+}
+
+
+#token {
+    margin: 30px 0 20px;
+}
+
+.command {
+    padding: 4px;
+    background-color: #F2994A;
+    color: #ffffff;
+    border-radius: 4px;
+}

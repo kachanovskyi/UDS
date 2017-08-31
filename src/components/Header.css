@@ -65,8 +65,14 @@ nav > ul > li:last-child {
 }
 
 .navbar-default .navbar-nav > li > a {
-    color: #F2994A;
+    color: #333333;
 }
-.navbar-default .navbar-nav > li:hover > a {
-    color: #F2995E;
+.navbar-default .navbar-nav > li.active > a,
+.navbar-default .navbar-nav > li.active:hover > a,
+.navbar-default .navbar-nav > li.active:focus > a {
+    color: #F2994A !important;
+    background-color: #ffffff !important;
+}
+.navbar-default .navbar-nav > li.active:hover > a {
+    color: #F2995E !important;
 }

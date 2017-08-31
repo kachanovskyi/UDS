@@ -13,7 +13,7 @@
 }
 
 .Login .login-form {
-    background-color: #ffffff;
+    background-color: transparent;
     padding: 15px 20px;
     text-align: center;
 }
@@ -51,48 +51,4 @@
 .login-form .title {
     margin-bottom: 30px;
     text-align: center;
-}
-
-.login-form .login-btn,
-.login-form .restore-btn {
-    display: inline-block;
-    float: right;
-    background-color: #F2994A;
-    cursor: pointer !important;
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 15px 60px;
-    border-radius: 4px;
-    box-shadow: none;
-    outline: none;
-    border: none;
-    transition: .2s ease-in-out;
-}
-
-.login-form .login-btn:hover {
-    background-color: #F2995E;
-}
-.login-form .login-btn:active,
-.login-form .login-btn:focus {
-    background-color: #D78536;
-}
-
-.login-form .restore-btn {
-    float: left;
-    background: transparent;
-    text-decoration: underline;
-    padding: 15px 0;
-    font-weight: 300;
-    color: #F2994A;
-}
-
-.login-form .restore-btn:hover {
-    color: #F2995E;
-}
-
-.login-form .restore-btn:active,
-.login-form .restore-btn:focus {
-    color: #D78536;
 }

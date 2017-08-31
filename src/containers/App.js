@@ -18,18 +18,19 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
-            userId: sessionStorage.getItem("toyotaCRadminID"),
+            userId: "",
             username: ""
         };
         this.logIn = this.logIn.bind(this);
     };
 
-    logIn(userId, username) {
-        sessionStorage.setItem("toyotaCRadminID", userId);
+    logIn(userId, username, logged) {
+        // sessionStorage.setItem("toyotaCRadminID", userId);
 
         this.setState({
             userId,
-            username
+            username,
+            logged
         })
     };
 
@@ -58,9 +59,9 @@ class App extends Component {
         let inner = null;
 
         if(this.props.location.pathname === "/forgot-password") {
-            inner = <ForgotPassword/>
+            inner = <ForgotPassword/>;
         } else if(this.props.location.pathname === "/restore-password") {
-            inner = <RestorePassword/>
+            inner = <RestorePassword/>;
         } else if(!this.state.logged) {
             inner =  <div><Redirect to="/"/><Login logIn={this.logIn}/></div>;
         } else if(this.state.logged) {

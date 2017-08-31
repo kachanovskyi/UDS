@@ -9,6 +9,7 @@
     border-radius: 4px;
     position: relative;
     padding: 20px;
+    background-color: #ffffff;
 }
 
 .chatbot .inner .bot-img {
@@ -24,23 +25,12 @@
 .chatbot .inner .bot-info {
     display: inline-block;
     vertical-align: middle;
+    width: calc(100% - 20px - 52px);
 }
 
 .chatbot .inner .bot-info p {
     margin: 0 0 5px;
     line-height: 140%;
-}
-
-.chatbot .inner .bot-info .bot-nickname {
-    margin: 0;
-    color: #F2994A;
-}
-.chatbot .inner .bot-info .bot-nickname:hover {
-    color: #F2995E;
-}
-
-.chatbot .inner .bot-info .bot-nickname img {
-    vertical-align: baseline;
 }
 
 .chatbot .inner .settings-btn {

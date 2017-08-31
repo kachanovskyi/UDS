@@ -21,9 +21,23 @@ const Restore = () => {
             confirmPass = document.getElementById('confirmPass').value;
 
         if(newPass === confirmPass) {
-            window.location.href = '/';
+            const data = {
+                password: newPass
+            };
+
+            fetch('./data.json', {
+                method: 'POST',
+                body: data
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    window.location.href = "/";
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         } else {
-            const errorMessage = "Passwords don't match. Please, type correct passwords."
+            const errorMessage = "Passwords don't match. Please, type correct passwords.";
             notifyModalShow(errorMessage);
         }
 

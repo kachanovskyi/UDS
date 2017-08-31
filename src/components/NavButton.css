@@ -1,0 +1,17 @@
+.bot-connect {
+    margin: 0;
+    padding: 0;
+    color: #F2994A;
+    border: none;
+    background-color: transparent;
+}
+.bot-connect:hover {
+    color: #F2995E;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.bot-connect img {
+    vertical-align: baseline;
+    margin-left: 4px;
+}
