@@ -82,7 +82,7 @@ class Chatbot extends Component {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        fetch('https://fb0e43f6.ngrok.io/rename', {
+        fetch('https://udigital.botscrew.com/rename', {
                 method: 'POST',
                 headers: myHeaders,
                 credentials: 'same-origin',
@@ -116,7 +116,7 @@ class Chatbot extends Component {
             return (
                 <div className="chatbot add-new">
                     <div className="inner">
-                        <p>+ Create new bot</p>
+                        <NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>
                     </div>
                 </div>
             )

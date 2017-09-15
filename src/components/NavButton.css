@@ -15,3 +15,11 @@
     vertical-align: baseline;
     margin-left: 4px;
 }
+
+.add-new .bot-connect {
+    color: #ffffff;
+}
+.add-new .bot-connect:hover {
+    color: #ffffff;
+    text-decoration: none;
+}

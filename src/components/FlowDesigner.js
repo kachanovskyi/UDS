@@ -12,6 +12,7 @@ class FlowDesigner extends Component {
 
     constructor() {
         super();
+        this.botId = null;
 
         // this.saveName = this.saveName.bind(this);
         // this.loadData = this.loadData.bind(this);
@@ -36,10 +37,10 @@ class FlowDesigner extends Component {
         myHeaders.append("Content-Type", "application/json");
 
         const data = {
-            "botId": 17
+            "botId": this.props.match.params.botId
         };
 
-        fetch('https://fb0e43f6.ngrok.io/list-all', {
+        fetch('https://udigital.botscrew.com/list-all', {
             method: 'POST',
             headers: myHeaders,
             credentials: 'same-origin',
@@ -66,19 +67,15 @@ class FlowDesigner extends Component {
         var selectedNode = null,
             editableNode = null;
         var deletedNodes = [];
+        let botId = null;
 
         function destroy() {
             if (network !== null) {
+                console.log('network set to null!');
                 network.destroy();
                 network = null;
             }
         }
-
-        console.log(flow);
-        destroy();
-        nodes = [];
-        edges = [];
-        var connectionCount = [];
 
         // randomly create some nodes and edges
         // nodes.push({
@@ -91,35 +88,44 @@ class FlowDesigner extends Component {
         //
         // nodes[0]["level"] = 0;
 
-        flow.forEach(function (node) {
+        destroy();
 
-            let color = "#E0E0E0";
-            let level = null;
+        function buildFlow(flow) {
+            nodes = [];
+            edges = [];
 
-            if(node.parentId === null) {
-                color = "#F2994A";
-                level = 0;
-            } else if(node.type === "BUTTON") {
-                color = "#2D9CDB";
-            }
+            flow.forEach(function (node) {
 
-            nodes.push({
-                id: node.id,
-                botId: node.botId,
-                widthConstraint: 150,
-                label: node.title,
-                parentId: node.parentId,
-                title: 'double click to edit',
-                color: color
+                let color = "#E0E0E0";
+                let level = null;
+
+                if(node.parentId === null) {
+                    color = "#F2994A";
+                    level = 0;
+                    botId = node.botId;
+                } else if(node.type === "BUTTON") {
+                    color = "#2D9CDB";
+                }
+
+                nodes.push({
+                    id: node.id,
+                    botId: node.botId,
+                    widthConstraint: 150,
+                    label: node.title,
+                    parentId: node.parentId,
+                    title: 'double click to edit',
+                    color: color
+                });
+
+                // if(node.parentId !== null) {
+                //     nodes[findNode(node.id)]["level"] = nodes[findNode(node.parentId)]["level"] + 1;
+                // }
+
+                edges.push({from: node.parentId, to: node.id});
+                // nodes[findNode(node.id)]["level"] = level;
             });
-
-            // if(node.parentId !== null) {
-            //     nodes[findNode(node.id)]["level"] = nodes[findNode(node.parentId)]["level"] + 1;
-            // }
-
-            edges.push({from: node.parentId, to: node.id});
-            // nodes[findNode(node.id)]["level"] = level;
-        });
+        }
+        buildFlow(flow);
 
         // create a network
         var container = document.getElementById('flowDesigner');
@@ -194,6 +200,9 @@ class FlowDesigner extends Component {
                 edges: edges
             };
 
+            console.log('Network updated');
+            console.log(nodes);
+
             network = new vis.Network(container, data, options);
             network
                 .on("click", selectNode)
@@ -203,15 +212,16 @@ class FlowDesigner extends Component {
         function selectNode(params) {
             selectedNode = params.nodes[0];
 //                console.log(network.body.data.nodes.length);
-//                console.log(network.body.data.nodes._data);
+               console.log(network.body.data.nodes._data);
 //                params.event = "[original event]";
 //                document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
 //                console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
         }
 
         function getLabel(params) {
-            editableNode = params.nodes[0];
+            selectedNode = editableNode = params.nodes[0];
             if (editableNode || editableNode === 0) {
+                console.log(nodes);
                 $('#messageInput').val(nodes[findNode(editableNode)].label);
             }
         }
@@ -222,17 +232,39 @@ class FlowDesigner extends Component {
             if ((editableNode || editableNode === 0) && (!ifStringEmpty(label))) {
                 nodes[findNode(editableNode)].label = label;
 
-                updateNetwork();
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
 
+                const data = {
+                    "id": nodes[findNode(editableNode)].id,
+                    "title": label
+                };
+
+                fetch('https://udigital.botscrew.com/edit-element', {
+                    method: 'POST',
+                    headers: myHeaders,
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        // console.log('element edited', responseJson);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+
+                updateNetwork();
                 $('#messageInput').val("");
             } else if (ifStringEmpty(label)) {
                 alert('Title can not be empty');
             }
 
-            editableNode = null;
+            selectedNode = editableNode = null;
         }
 
         function addNode(type) {
+            console.log('adding element');
             var typeColor,
                 label = msgInput.val();
 
@@ -245,7 +277,7 @@ class FlowDesigner extends Component {
             }
 
             if (selectedNode || selectedNode === 0) {
-                var elemId = "tempID";
+                var elemId = "tempID" + Math.floor((Math.random() * 100000) + 1);
                 // selectedNodeLevel = nodes[findNode(selectedNode)]["level"]
 
                 if (!ifStringEmpty(label)) {
@@ -258,20 +290,19 @@ class FlowDesigner extends Component {
                         parentId: selectedNode
                     });
                     // nodes[findNode(elemId)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
-                    edges.push({from: selectedNode, to: elemId});
 
                     const myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
 
                     const data = {
-                        "bot_id":nodes[findNode(selectedNode)].botId,
+                        "bot_id":botId,
                         "type":type,
                         "title": label,
                         "parent_flow_id": selectedNode,
                         "active":true
                     };
 
-                    fetch('https://fb0e43f6.ngrok.io/create-element', {
+                    fetch('https://udigital.botscrew.com/create-element', {
                         method: 'POST',
                         headers: myHeaders,
                         credentials: 'same-origin',
@@ -282,16 +313,18 @@ class FlowDesigner extends Component {
 
                             nodes[findNode(elemId)].id = responseJson;
                             // nodes[findNode(responseJson)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
-                            console.log(nodes[findNode(responseJson)]);
+                            edges.push({from: nodes[findNode(responseJson)].parentId, to: responseJson});
+                            console.log(selectedNode);
+                            console.log(responseJson);
+                            updateNetwork();
+
+                            selectedNode = null;
+                            $('#messageInput').val("");
                         })
                         .catch((error) => {
                             console.error(error);
                         });
 
-                    updateNetwork();
-
-                    selectedNode = null;
-                    $('#messageInput').val("");
                 } else {
                     alert('Message or button title can not be empty');
                 }
@@ -371,13 +404,14 @@ class FlowDesigner extends Component {
 //                 }
 
                 const data = {
-                    "id": nodes[findNode(selectedNode)].id
+                    "id": nodes[findNode(selectedNode)].id,
+                    "botId": botId
                 };
 
                 const myHeaders = new Headers();
                 myHeaders.append("Content-Type", "application/json");
 
-                fetch('https://fb0e43f6.ngrok.io/delete-element', {
+                fetch('https://udigital.botscrew.com/delete-element', {
                     method: 'POST',
                     headers: myHeaders,
                     credentials: 'same-origin',
@@ -386,9 +420,9 @@ class FlowDesigner extends Component {
                     .then((response) => response.json())
                     .then((responseJson) => {
 
-                        responseJson.forEach(function (item) {
-                            removeNode(item);
-                        });
+                        console.log(responseJson);
+
+                        buildFlow(responseJson);
 
                         updateNetwork();
                     })

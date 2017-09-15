@@ -20,7 +20,7 @@ const Main = () => {
                 {/*<Route path='/:passRestored' component={Login}/>*/}
                 <Route path='/forgot-password' component={ForgotPassword}/>
                 <Route path='/restore-password' component={RestorePassword}/>
-                {/*<Route path='/connect' component={Header}/>*/}
+                <Route path='/create-bot' component={ConnectBot}/>
                 <Route path='/connect-bot/:botId' component={ConnectBot}/>
                 <Route path='/flow-designer/:botId' component={FlowDesigner}/>
             </Switch>

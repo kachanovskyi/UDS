@@ -25,7 +25,7 @@ class Chatbots extends Component {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        fetch('https://fb0e43f6.ngrok.io/duplicate', {
+        fetch('https://udigital.botscrew.com/duplicate', {
             method: 'POST',
             headers: myHeaders,
             credentials: 'same-origin',
@@ -56,11 +56,10 @@ class Chatbots extends Component {
             botId: id
         };
 
-
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        fetch('https://fb0e43f6.ngrok.io/delete', {
+        fetch('https://udigital.botscrew.com/delete', {
             method: 'POST',
                 headers: myHeaders,
                 credentials: 'same-origin',
@@ -91,7 +90,7 @@ class Chatbots extends Component {
     }
 
     loadData() {
-        fetch('https://fb0e43f6.ngrok.io/list')
+        fetch('https://udigital.botscrew.com/list')
             .then((response) => response.json())
             .then((responseJson) => {
 
