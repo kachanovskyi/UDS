@@ -79,9 +79,14 @@ class Chatbot extends Component {
             name: newName
         };
 
-        fetch('./chatbots.json', {
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        fetch('https://fb0e43f6.ngrok.io/rename', {
                 method: 'POST',
-                body: data
+                headers: myHeaders,
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
             }
         )
             .then((response) => response.json())
@@ -104,7 +109,7 @@ class Chatbot extends Component {
 
         this.cancelRename($bot);
     }
-    
+
 
     render() {
         if (this.props.type === "add-new") {
@@ -129,12 +134,17 @@ class Chatbot extends Component {
                         <img src={this.props.img}/>
                     </div>
                     <div className="bot-info">
-                        <p className="bot-name">{this.props.name}</p>
+                        {/*<p className="bot-name">{this.props.name}</p>*/}
+                        <div>
+                            <NavButton className="bot-name" text={this.props.name}
+                                       goTo={'/flow-designer/' + this.props.id}/>
+                        </div>
                         {this.props.telegramToken ? nickname : connectBot}
                     </div>
                     <input type="text" name="rename-bot" className="rename-bot hidden"/>
                     <span className="settings-btn">
-                                    <CustomDropdown botId={this.props.id} index={this.props.index} duplicate={this.duplicate}
+                                    <CustomDropdown botId={this.props.id} index={this.props.index}
+                                                    duplicate={this.duplicate}
                                                     rename={this.rename} deleteBot={this.props.removeBot}/>
                             </span>
                     <a className="save-btn hidden" onClick={this.saveName}>Save</a>

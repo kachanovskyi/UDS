@@ -1,0 +1,34 @@
+.FlowDesigner {
+    margin-top: 80px;
+    width: 100%;
+}
+
+#flowDesigner {
+    width: 100%;
+    height: calc(100vh - 100px - 80px);
+    /*position: absolute;*/
+    bottom: 0;
+    left: 0;
+    border: 1px solid lightgray;
+    background: #1B2635;
+    /*background: url("Group.svg");*/
+}
+
+.FlowDesigner .btn-container {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.FlowDesigner .input-container {
+    margin-bottom: 10px;
+}
+
+.FlowDesigner button {
+    padding: 8px;
+    cursor: pointer;
+    margin: 0 10px;
+}

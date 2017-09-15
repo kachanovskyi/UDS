@@ -16,7 +16,8 @@
     "react-grid-components": "^0.1.1",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-router-native": "^4.1.1"
+    "react-router-native": "^4.1.1",
+    "vis": "^4.20.1"
   },
   "devDependencies": {
     "react-clone": "^1.0.0",

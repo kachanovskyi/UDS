@@ -6,6 +6,7 @@ import './Chatbots.css';
 import {Col} from 'react-bootstrap';
 import $ from 'jquery';
 import Chatbot from './Chatbot';
+import NavButton from './NavButton';
 
 class Chatbots extends Component {
 
@@ -21,11 +22,15 @@ class Chatbots extends Component {
     };
 
     getBotData(data) {
-        fetch('./chatbots.json', {
-                method: 'POST',
-                body: data
-            }
-        )
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        fetch('https://fb0e43f6.ngrok.io/duplicate', {
+            method: 'POST',
+            headers: myHeaders,
+            credentials: 'same-origin',
+            body: JSON.stringify(data)
+        })
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -51,9 +56,15 @@ class Chatbots extends Component {
             botId: id
         };
 
-        fetch('./chatbots.json', {
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        fetch('https://fb0e43f6.ngrok.io/delete', {
             method: 'POST',
-            body: data
+                headers: myHeaders,
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
         }
         )
             .then((response) => response.json())
@@ -80,11 +91,12 @@ class Chatbots extends Component {
     }
 
     loadData() {
-        fetch('./chatbots.json')
+        fetch('https://fb0e43f6.ngrok.io/list')
             .then((response) => response.json())
             .then((responseJson) => {
 
                 let chatbots = [];
+                console.log(chatbots);
 
                 responseJson.forEach(item => {
                     chatbots.push(item);
@@ -109,7 +121,7 @@ class Chatbots extends Component {
                     </Col>
                     {this.state.chatbots.map((chatbot, index) => (
                         <Col md={4} lg={3} key={index}>
-                            <Chatbot img={chatbot.img} name={chatbot.name} telegramToken={chatbot.telegramToken}
+                            <Chatbot onClick="" img={chatbot.img} name={chatbot.name} telegramToken={chatbot.telegramToken}
                                      id={chatbot.id} nickname={chatbot.nickname} index={index}
                                      sendBotData={this.getBotData} removeBot={this.removeBot}/>
                         </Col>

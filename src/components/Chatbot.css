@@ -33,6 +33,11 @@
     line-height: 140%;
 }
 
+.chatbot .inner .bot-name {
+    color: #333333;
+    display: inline-block;
+}
+
 .chatbot .inner .settings-btn {
     position: absolute;
     top: 10px;

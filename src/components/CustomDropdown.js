@@ -10,7 +10,7 @@ const CustomDropdown = ({botId, index, duplicate, rename, deleteBot}) => {
         <ButtonToolbar>
             <Dropdown id="settingsDropdown" pullRight>
                 <Dropdown.Toggle>
-                    <img className="settings-icon" src="images/settings.svg"/>
+                    <img className="settings-icon" src="images/settings.png"/>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="super-colors">
                     <MenuItem eventKey="1" onClick={() => {duplicate(botId)}}>Duplicate</MenuItem>

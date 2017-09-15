@@ -7,6 +7,7 @@ import ForgotPassword from './ForgotPassword';
 import RestorePassword from './RestorePassword';
 import Chatbots from './Chatbots';
 import ConnectBot from './ConnectBot';
+import FlowDesigner from "./FlowDesigner";
 
 const Main = () => {
 
@@ -21,6 +22,7 @@ const Main = () => {
                 <Route path='/restore-password' component={RestorePassword}/>
                 {/*<Route path='/connect' component={Header}/>*/}
                 <Route path='/connect-bot/:botId' component={ConnectBot}/>
+                <Route path='/flow-designer/:botId' component={FlowDesigner}/>
             </Switch>
         </main>
     );
