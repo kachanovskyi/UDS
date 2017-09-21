@@ -47,7 +47,7 @@ const Restore = () => {
     return (
         <div className="Login">
             <div className="row table-cell">
-                <Col xs={8} xsOffset={2} className="login-form">
+                <Col xs={8} xsOffset={2} md={6} mdOffset={3} lg={4} lgOffset={4} className="login-form">
                     <h2 className="title">New password</h2>
                     <form onSubmit={checkPass}>
                         <div className="password-container">

@@ -115,9 +115,10 @@ class Chatbot extends Component {
         if (this.props.type === "add-new") {
             return (
                 <div className="chatbot add-new">
-                    <div className="inner">
-                        <NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>
-                    </div>
+                    <NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>
+                    {/*<div className="inner">*/}
+                        {/*<NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>*/}
+                    {/*</div>*/}
                 </div>
             )
         }

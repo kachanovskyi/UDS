@@ -3,13 +3,18 @@
     padding: 20px 10px 0;
     width: 100%;
 }
-.chatbot .inner {
+.chatbot .inner,
+.chatbot.add-new .bot-connect {
     border: 1px solid #CCCCCC;
     box-sizing: border-box;
     border-radius: 4px;
     position: relative;
     padding: 20px;
     background-color: #ffffff;
+}
+
+.chatbot.add-new {
+    padding: 0 10px;
 }
 
 .chatbot .inner .bot-img {
@@ -53,19 +58,19 @@
     opacity: 1 !important;
 }
 
-.chatbot.add-new .inner {
+.chatbot.add-new .bot-connect {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #F2994A;
 }
-.chatbot.add-new:hover .inner {
+.chatbot.add-new:hover .bot-connect {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     transition: .1s ease-in-out;
 }
 
-.chatbot.add-new .inner p {
+.chatbot.add-new .bot-connect p {
     margin: 0;
     color: #ffffff;
 }
