@@ -3,29 +3,22 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './FlowDesigner.css';
 
+import {notifyModalShow} from '../externalFunctions';
+import NotifyModal from './NofityModal';
 import $ from 'jquery';
 import vis from 'vis';
+import visStyles from 'vis/dist/vis.css';
 
 class FlowDesigner extends Component {
 
     constructor() {
         super();
         this.botId = null;
+        this.deletedNodes = [];
 
         this.draw = this.draw.bind(this);
+        this.redo = this.redo.bind(this);
     };
-
-    // loadData() {
-    //     fetch('../data2.json')
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //
-    //             draw(responseJson);
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    // };
 
     componentDidMount() {
         // this.loadData();
@@ -54,17 +47,19 @@ class FlowDesigner extends Component {
 
     draw(flow) {
         const self = this;
-        var msgInput = $('#messageInput');
 
-        var nodes = null;
-        var edges = null;
-        var network = null;
-        var selectedNode = null,
+        const msgInput = $('#messageInput');
+
+        let nodes = null,
+            edges = null;
+        let network = null;
+        let selectedNode = null,
             editableNode = null;
 
-        var deletedNodes = [],
+        let deletedNodes = [],
             nodesArray = [],
             edgesArray = [];
+
         let botId = null;
 
         function destroy() {
@@ -74,23 +69,11 @@ class FlowDesigner extends Component {
                 network = null;
             }
         }
-
-        // randomly create some nodes and edges
-        // nodes.push({
-        //     id: 0,
-        //     widthConstraint: 150,
-        //     label: "Welcome message",
-        //     color: "#F2994A",
-        //     title: 'double click to edit'
-        // });
-        //
-        // nodes[0]["level"] = 0;
-
         destroy();
 
-        function buildFlow(flow) {
-            nodes = [];
-            edges = [];
+        function buildFlow(flow, rebuild) {
+            nodesArray = [];
+            edgesArray = [];
 
             flow.forEach(function (node) {
 
@@ -108,37 +91,37 @@ class FlowDesigner extends Component {
                 nodesArray.push({
                     id: node.id,
                     botId: node.botId,
-                    widthConstraint: 150,
+                    widthConstraint: 200,
                     label: node.title,
                     parentId: node.parentId,
                     title: 'double click to edit',
                     color: color
                 });
-
-                // if(node.parentId !== null) {
-                //     nodes[findNode(node.id)]["level"] = nodes[findNode(node.parentId)]["level"] + 1;
-                // }
-
                 edgesArray.push({from: node.parentId, to: node.id});
 
-                nodes = new vis.DataSet(nodesArray);
-                edges = new vis.DataSet(edgesArray);
-                // nodes[findNode(node.id)]["level"] = level;
+                if(rebuild) {
+                    updateNetwork();
+                } else {
+                    nodes = new vis.DataSet(nodesArray);
+                    edges = new vis.DataSet(edgesArray);
+                }
             });
         }
         buildFlow(flow);
 
         // create a network
-        var container = document.getElementById('flowDesigner');
-        var data = {
+        let container = document.getElementById('flowDesigner');
+        let data = {
             nodes: nodes,
             edges: edges
         };
 
-        var options = {
+        let options = {
             interaction: {
                 dragNodes: false,
-                hover: true
+                hover: true,
+                navigationButtons: true,
+                keyboard: true
             },
             nodes: {
                 shape: 'box',
@@ -169,8 +152,8 @@ class FlowDesigner extends Component {
             layout: {
                 hierarchical: {
                     direction: "UD",
-                    levelSeparation: 200,
-                    nodeSpacing: 200,
+                    levelSeparation: 250,
+                    nodeSpacing: 250,
                     sortMethod: 'directed'
                 }
             },
@@ -178,7 +161,6 @@ class FlowDesigner extends Component {
             manipulation: {
                 enabled: false,
                 initiallyActive: false
-//                    addNode: true
             }
         };
         network = new vis.Network(container, data, options);
@@ -191,48 +173,30 @@ class FlowDesigner extends Component {
         network.on("click", selectNode);
         network.on("doubleClick", getLabel);
 
+        function selectNode(params) {
+            selectedNode = params.nodes[0];
+        }
+
+        function getLabel(params) {
+            selectedNode = editableNode = params.nodes[0];
+            if (editableNode || editableNode === 0) {
+                $('#messageInput').val(nodesArray[findNode(editableNode)].label);
+            }
+        }
+
         function ifStringEmpty(text) {
             return (text.length === 0 && !text.trim());
         }
 
         function updateNetwork() {
-            // data = {
-            //     nodes: nodes,
-            //     edges: edges
-            // };
-            //
-            // console.log('Network updated');
-            // console.log(nodes);
-            //
-            // network = new vis.Network(container, data, options);
-            // network
-            //     .on("click", selectNode)
-            //     .on("doubleClick", getLabel);
             nodes.clear();
             edges.clear();
             nodes.add(nodesArray);
             edges.add(edgesArray);
         }
 
-        function selectNode(params) {
-            selectedNode = params.nodes[0];
-//                console.log(network.body.data.nodes.length);
-               console.log(network.body.data.nodes._data);
-//                params.event = "[original event]";
-//                document.getElementById('eventSpan').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-//                console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-        }
-
-        function getLabel(params) {
-            selectedNode = editableNode = params.nodes[0];
-            if (editableNode || editableNode === 0) {
-                console.log(nodes);
-                $('#messageInput').val(nodesArray[findNode(editableNode)].label);
-            }
-        }
-
         function saveLabel() {
-            var label = msgInput.val();
+            const label = msgInput.val();
 
             if ((editableNode || editableNode === 0) && (!ifStringEmpty(label))) {
                 nodesArray[findNode(editableNode)].label = label;
@@ -269,8 +233,7 @@ class FlowDesigner extends Component {
         }
 
         function addNode(type) {
-            console.log('adding element');
-            var typeColor,
+            let typeColor,
                 label = msgInput.val();
 
             if (type === "btn") {
@@ -282,17 +245,18 @@ class FlowDesigner extends Component {
             }
 
             if (selectedNode || selectedNode === 0) {
-                var elemId = "tempID" + Math.floor((Math.random() * 100000) + 1);
+                const elemId = "tempID" + Math.floor((Math.random() * 100000) + 1);
                 // selectedNodeLevel = nodes[findNode(selectedNode)]["level"]
 
                 if (!ifStringEmpty(label)) {
                     nodesArray.push({
                         id: elemId,
-                        widthConstraint: 150,
+                        widthConstraint: 200,
                         label: label,
                         color: typeColor,
                         type: type,
-                        parentId: selectedNode
+                        parentId: selectedNode,
+                        title: 'double click to edit'
                     });
                     // nodes[findNode(elemId)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
 
@@ -319,9 +283,10 @@ class FlowDesigner extends Component {
                             nodesArray[findNode(elemId)].id = responseJson;
                             // nodes[findNode(responseJson)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
                             edgesArray.push({from: nodesArray[findNode(responseJson)].parentId, to: responseJson});
-                            console.log(selectedNode);
-                            console.log(responseJson);
                             updateNetwork();
+
+                            console.log(network.getPositions([responseJson]));
+                            network.moveTo(network.getPositions([responseJson]));
 
                             selectedNode = null;
                             $('#messageInput').val("");
@@ -350,7 +315,7 @@ class FlowDesigner extends Component {
         $('#saveBtn').on("click", saveLabel);
 
         function findNodeIdByParentId(parentId) {
-            var item = nodesArray.find(item => item.parentId === parentId);
+            const item = nodesArray.find(item => item.parentId === parentId);
 
             if (item !== undefined) {
                 return item.id;
@@ -359,55 +324,45 @@ class FlowDesigner extends Component {
         }
 
         function findNode(id) {
-            var item = nodesArray.find(item => item.id === id);
+            const item = nodesArray.find(item => item.id === id);
             return nodesArray.indexOf(item);
         }
 
-        function removeNode(id) {
-            var nodeIndex = findNode(id);
+        // function removeNode(id) {
+        //     const nodeIndex = findNode(id);
+        //
+        //     deletedNodes.push(nodesArray[nodeIndex]);
+        //     nodesArray.splice(nodeIndex, 1);
+        // }
 
-            deletedNodes.push(nodesArray[nodeIndex]);
-            nodesArray.splice(nodeIndex, 1);
+        function redo() {
+            console.log(1);
+
+            const data = {
+                deletedNodes
+            };
+
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            fetch('https://udigital.botscrew.com/undo', {
+                method: 'POST',
+                headers: myHeaders,
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    buildFlow(responseJson, true);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         }
 
         function deleteNode() {
-            deletedNodes.splice(0, deletedNodes.length);
 
             if (selectedNode) {
-                console.log(selectedNode);
-                console.log(nodesArray[findNode(selectedNode)].type);
-
-//                 if (nodes[findNode(selectedNode)].type === "MESSAGE") {
-//
-//                     console.log('Edge from: ', nodes[findNode(selectedNode)].parentId);
-//
-//                     var counter = 0;
-//                     var childId = findNodeIdByParentId(selectedNode);
-//
-//                     while (childId !== -1) {
-//                         console.log("NOT HERE");
-//                         edges.push({from: nodes[findNode(selectedNode)].parentId, to: childId});
-//                         nodes[findNode(childId)]["level"] -= 1;
-// //                                console.log(findNode(childId));
-// //                                removeNode(childId);
-//                         console.log(childId);
-//                         childId = findNodeIdByParentId(childId);
-//                         console.log(childId);
-//                         counter++;
-//                     }
-//                     removeNode(selectedNode);
-//
-//                     data = {
-//                         nodes: nodes,
-//                         edges: edges
-//                     };
-// //
-//                     network = new vis.Network(container, data, options);
-//                     network.on("click", selectNode);
-// //
-//                     selectedNode = null;
-//                 }
-
                 const data = {
                     "id": nodesArray[findNode(selectedNode)].id,
                     "botId": botId
@@ -425,11 +380,19 @@ class FlowDesigner extends Component {
                     .then((response) => response.json())
                     .then((responseJson) => {
 
-                        console.log(responseJson);
+                        notifyModalShow("Element(s) was successfully deleted.", "undo", redo);
+                        console.log(responseJson[1]);
+                        console.log(responseJson[0]);
 
-                        buildFlow(responseJson);
+                        // deletedNodes = [...responseJson[0]];
 
-                        updateNetwork();
+                        self.setState({
+                            deletedNodes: [...responseJson[0]]
+                        });
+
+                        buildFlow(responseJson[1], true);
+
+                        // updateNetwork();
                     })
                     .catch((error) => {
                         console.error(error);
@@ -442,9 +405,6 @@ class FlowDesigner extends Component {
             }
         }
 
-        function deleteNodesChain(parentId) {
-
-        }
     }
 
 
@@ -483,6 +443,31 @@ class FlowDesigner extends Component {
     //     this.cancelRename($bot);
     // }
 
+    redo() {
+        const self = this;
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        console.log(this.state.deletedNodes);
+
+        fetch('https://udigital.botscrew.com/undo', {
+            method: 'POST',
+            headers: myHeaders,
+            credentials: 'same-origin',
+            body: JSON.stringify(this.state.deletedNodes)
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                console.log(responseJson);
+
+                self.draw(responseJson);
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
     render() {
         return (
@@ -500,6 +485,7 @@ class FlowDesigner extends Component {
                 </div>
 
                 <div id="flowDesigner"/>
+                <NotifyModal undo={this.redo}/>
             </div>
         )
     }

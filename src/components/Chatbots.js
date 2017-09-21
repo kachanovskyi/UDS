@@ -95,7 +95,6 @@ class Chatbots extends Component {
             .then((responseJson) => {
 
                 let chatbots = [];
-                console.log(chatbots);
 
                 responseJson.forEach(item => {
                     chatbots.push(item);

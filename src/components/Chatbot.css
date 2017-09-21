@@ -18,13 +18,14 @@
 }
 
 .chatbot .inner .bot-img {
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 20px;
-}
-
-.chatbot .inner .bot-img img {
     width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    color: #ffffff;
 }
 
 .chatbot .inner .bot-info {

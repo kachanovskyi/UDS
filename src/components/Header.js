@@ -66,7 +66,7 @@ const Header = (props) => {
                             <span className="icon-bar"></span>
                         </button>
                         <a className="navbar-brand">
-                            <span>Logotype</span>
+                            <img src="images/ud-logo.svg"/>
                         </a>
                     </div>
                     <div className="collapse navbar-collapse" id="udsNav">

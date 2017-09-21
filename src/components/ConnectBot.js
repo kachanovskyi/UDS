@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import {Col} from 'react-bootstrap';
-import {notifyModalShow} from '../externalFunctions';
+import {notifyModalShow, getRandomColor} from '../externalFunctions';
 import {NavLink, withRouter} from 'react-router-dom';
 
 import NotifyModal from './NofityModal';
@@ -41,6 +41,10 @@ class ConnectBot extends Component {
 
         if(this.state.action === "connect") {
             data.botId = this.props.match.params.botId;
+        }
+
+        if(this.state.action === "create") {
+            data.color = getRandomColor();
         }
 
         const myHeaders = new Headers();

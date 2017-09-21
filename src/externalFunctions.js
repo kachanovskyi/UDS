@@ -2,6 +2,11 @@ import $ from 'jquery';
 
 export const notifyModalShow = (message, type) => {
     const notifyModal = $('#notifyModal');
+
+    if(type === "undo") {
+        notifyModal.addClass('undo');
+    }
+
     let notifyModalTimeout;
 
     if ( notifyModal && (notifyModal !== undefined) ) {
@@ -24,7 +29,7 @@ export const notifyModalShow = (message, type) => {
         }, 333, () => {
             $(this).addClass('hidden');
         });
-    }, 2000);
+    }, 200000);
 };
 
 export const displayPass = ({target}) => {
@@ -38,4 +43,34 @@ export const hidePass = ({target}) => {
     const input = $(target).parent().find('input[type=text]');
     input.attr('type', 'password');
     $(target).attr('src', 'images/eye-icon.svg');
+};
+
+
+export const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+const hexToRgb = (hex) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+};
+
+export const getTextColor = (hex) => {
+    const rgb = hexToRgb(hex);
+    const o = Math.round(((parseInt(rgb[0]) * 299) +
+        (parseInt(rgb[1]) * 587) +
+        (parseInt(rgb[2]) * 114)) / 1000);
+    const fore = (o > 125) ? 'black' : 'white';
+    const back = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
+
+    return fore;
 };

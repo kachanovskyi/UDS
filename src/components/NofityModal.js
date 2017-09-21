@@ -5,7 +5,7 @@ import './NotifyModal.css';
 import $ from 'jquery'
 
 
-const NotifyModal = (props) => {
+const NotifyModal = ({undo}) => {
 
     const modalClose = () => {
         $('#notifyModal')
@@ -18,8 +18,9 @@ const NotifyModal = (props) => {
     };
 
     return (
-        <div id="notifyModal" className="hidden">
+        <div id="notifyModal" className="hidden undo">
             <span className="close-icon" onClick={modalClose}>&#10005;</span>
+            <span className="undo-btn" onClick={undo}>Undo</span>
             <p className="message-text">
             </p>
         </div>

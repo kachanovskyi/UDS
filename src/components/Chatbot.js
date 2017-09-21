@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Chatbot.css';
 
+import {getRandomColor, getTextColor} from '../externalFunctions';
 import CustomDropdown from './CustomDropdown';
 import NavButton from './NavButton';
 import $ from 'jquery';
@@ -111,6 +112,7 @@ class Chatbot extends Component {
     }
 
 
+
     render() {
         if (this.props.type === "add-new") {
             return (
@@ -131,8 +133,9 @@ class Chatbot extends Component {
         return (
             <div className="chatbot">
                 <div className="inner">
-                    <div className="bot-img">
-                        <img src={this.props.img}/>
+                    {/*<div className="bot-img" style={{backgroundColor: this.props.background, , color: getTextColor(this.props.background)}}>*/}
+                    <div className="bot-img" style={{backgroundColor: getRandomColor(), color: getTextColor("#000000")}}>
+                        {this.props.name[0]}
                     </div>
                     <div className="bot-info">
                         {/*<p className="bot-name">{this.props.name}</p>*/}
