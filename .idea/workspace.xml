@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="148849d7-312b-42ee-a565-c5dec8b9d1c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbot.css" afterPath="$PROJECT_DIR$/src/components/Chatbot.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbot.js" afterPath="$PROJECT_DIR$/src/components/Chatbot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbots.js" afterPath="$PROJECT_DIR$/src/components/Chatbots.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ConnectBot.js" afterPath="$PROJECT_DIR$/src/components/ConnectBot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/FlowDesigner.css" afterPath="$PROJECT_DIR$/src/components/FlowDesigner.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/FlowDesigner.js" afterPath="$PROJECT_DIR$/src/components/FlowDesigner.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Header.js" afterPath="$PROJECT_DIR$/src/components/Header.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NofityModal.js" afterPath="$PROJECT_DIR$/src/components/NofityModal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NotifyModal.css" afterPath="$PROJECT_DIR$/src/components/NotifyModal.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/externalFunctions.js" afterPath="$PROJECT_DIR$/src/externalFunctions.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,8 +54,8 @@
       <file leaf-file-name="NofityModal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/NofityModal.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="22" column="56" lean-forward="false" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
+            <state relative-caret-position="345">
+              <caret line="27" column="59" lean-forward="false" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -95,8 +86,8 @@
       <file leaf-file-name="FlowDesigner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="438">
-              <caret line="463" column="38" lean-forward="false" selection-start-line="463" selection-start-column="38" selection-end-line="463" selection-end-column="38" />
+            <state relative-caret-position="77">
+              <caret line="338" column="25" lean-forward="false" selection-start-line="338" selection-start-column="25" selection-end-line="338" selection-end-column="25" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -200,8 +191,8 @@
         <option value="$PROJECT_DIR$/src/components/Chatbots.js" />
         <option value="$PROJECT_DIR$/src/externalFunctions.js" />
         <option value="$PROJECT_DIR$/public/data.json" />
-        <option value="$PROJECT_DIR$/src/components/NofityModal.js" />
         <option value="$PROJECT_DIR$/src/components/NotifyModal.css" />
+        <option value="$PROJECT_DIR$/src/components/NofityModal.js" />
         <option value="$PROJECT_DIR$/src/components/FlowDesigner.js" />
       </list>
     </option>
@@ -330,12 +321,12 @@
       <workItem from="1505388966266" duration="11641000" />
       <workItem from="1505468443623" duration="7166000" />
       <workItem from="1505833153847" duration="1116000" />
-      <workItem from="1505928075780" duration="16538000" />
+      <workItem from="1505928075780" duration="17173000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122487000" />
+    <option name="totallyTimeSpent" value="123122000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -732,14 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/NofityModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="56" lean-forward="false" selection-start-line="22" selection-start-column="56" selection-end-line="22" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/externalFunctions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -748,10 +731,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/NofityModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="27" column="59" lean-forward="false" selection-start-line="27" selection-start-column="59" selection-end-line="27" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="463" column="38" lean-forward="false" selection-start-line="463" selection-start-column="38" selection-end-line="463" selection-end-column="38" />
+        <state relative-caret-position="77">
+          <caret line="338" column="25" lean-forward="false" selection-start-line="338" selection-start-column="25" selection-end-line="338" selection-end-column="25" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

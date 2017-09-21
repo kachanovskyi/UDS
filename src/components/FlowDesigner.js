@@ -46,6 +46,7 @@ class FlowDesigner extends Component {
     }
 
     draw(flow) {
+
         const self = this;
 
         const msgInput = $('#messageInput');
@@ -336,7 +337,6 @@ class FlowDesigner extends Component {
         // }
 
         function redo() {
-            console.log(1);
 
             const data = {
                 deletedNodes
@@ -363,6 +363,8 @@ class FlowDesigner extends Component {
         function deleteNode() {
 
             if (selectedNode) {
+                console.log(nodesArray);
+
                 const data = {
                     "id": nodesArray[findNode(selectedNode)].id,
                     "botId": botId
