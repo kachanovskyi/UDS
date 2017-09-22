@@ -315,14 +315,14 @@ class FlowDesigner extends Component {
 
         $('#saveBtn').on("click", saveLabel);
 
-        function findNodeIdByParentId(parentId) {
-            const item = nodesArray.find(item => item.parentId === parentId);
-
-            if (item !== undefined) {
-                return item.id;
-            }
-            return -1;
-        }
+        // function findNodeIdByParentId(parentId) {
+        //     const item = nodesArray.find(item => item.parentId === parentId);
+        //
+        //     if (item !== undefined) {
+        //         return item.id;
+        //     }
+        //     return -1;
+        // }
 
         function findNode(id) {
             const item = nodesArray.find(item => item.id === id);
@@ -336,31 +336,37 @@ class FlowDesigner extends Component {
         //     nodesArray.splice(nodeIndex, 1);
         // }
 
-        function redo() {
-
-            const data = {
-                deletedNodes
-            };
-
-            const myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-
-            fetch('https://udigital.botscrew.com/undo', {
-                method: 'POST',
-                headers: myHeaders,
-                credentials: 'same-origin',
-                body: JSON.stringify(data)
-            })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    buildFlow(responseJson, true);
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
+        // function redo() {
+        //
+        //     const data = {
+        //         deletedNodes
+        //     };
+        //
+        //     const myHeaders = new Headers();
+        //     myHeaders.append("Content-Type", "application/json");
+        //
+        //     fetch('https://udigital.botscrew.com/undo', {
+        //         method: 'POST',
+        //         headers: myHeaders,
+        //         credentials: 'same-origin',
+        //         body: JSON.stringify(data)
+        //     })
+        //         .then((response) => response.json())
+        //         .then((responseJson) => {
+        //             console.log(responseJson);
+        //             buildFlow(responseJson, true);
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         });
+        // }
 
         function deleteNode() {
+
+            console.log(nodesArray);
+            console.log(nodes);
+            console.log(selectedNode);
+            console.log(findNode(selectedNode));
 
             if (nodesArray[findNode(selectedNode)].parentId === null) {
                 notifyModalShow("You are not allowed to remove root element!");
@@ -384,7 +390,7 @@ class FlowDesigner extends Component {
                     .then((response) => response.json())
                     .then((responseJson) => {
 
-                        notifyModalShow("Element(s) was successfully deleted.", "undo", redo);
+                        notifyModalShow("Element(s) was successfully deleted.", "undo");
                         console.log(responseJson[1]);
                         console.log(responseJson[0]);
 
@@ -460,8 +466,6 @@ class FlowDesigner extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-
-                console.log(responseJson);
 
                 self.draw(responseJson);
 

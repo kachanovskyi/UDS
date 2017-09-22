@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="148849d7-312b-42ee-a565-c5dec8b9d1c0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbot.js" afterPath="$PROJECT_DIR$/src/components/Chatbot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbots.js" afterPath="$PROJECT_DIR$/src/components/Chatbots.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/FlowDesigner.js" afterPath="$PROJECT_DIR$/src/components/FlowDesigner.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NofityModal.js" afterPath="$PROJECT_DIR$/src/components/NofityModal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NotifyModal.css" afterPath="$PROJECT_DIR$/src/components/NotifyModal.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,24 +39,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chatbot.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Chatbot.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Chatbot.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="138" column="90" lean-forward="true" selection-start-line="138" selection-start-column="90" selection-end-line="138" selection-end-column="90" />
+            <state relative-caret-position="160">
+              <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NofityModal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/NofityModal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -68,8 +54,8 @@
       <file leaf-file-name="Chatbots.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Chatbots.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="94" column="37" lean-forward="false" selection-start-line="94" selection-start-column="37" selection-end-line="94" selection-end-column="37" />
+            <state relative-caret-position="520">
+              <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -77,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlowDesigner.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FlowDesigner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="475" column="40" lean-forward="false" selection-start-line="475" selection-start-column="28" selection-end-line="475" selection-end-column="40" />
+            <state relative-caret-position="58">
+              <caret line="363" column="24" lean-forward="false" selection-start-line="363" selection-start-column="24" selection-end-line="363" selection-end-column="24" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -111,10 +97,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>northwoods</find>
-      <find>nwoods.com</find>
-      <find>bot-name</find>
-      <find>data.json</find>
       <find>chatbots.json</find>
       <find>delete</find>
       <find>draw(</find>
@@ -139,8 +121,12 @@
       <find>deletedNodes</find>
       <find>&quot;select</find>
       <find>network</find>
-      <find>deleteNode</find>
       <find>udigi</find>
+      <find>https://udigital.botscrew.com/</find>
+      <find>deleteNode</find>
+      <find>redo</find>
+      <find>red</find>
+      <find>nodesArray</find>
     </findStrings>
     <replaceStrings>
       <replace>className</replace>
@@ -183,11 +169,11 @@
         <option value="$PROJECT_DIR$/src/components/Chatbot.css" />
         <option value="$PROJECT_DIR$/src/externalFunctions.js" />
         <option value="$PROJECT_DIR$/public/data.json" />
-        <option value="$PROJECT_DIR$/src/components/FlowDesigner.js" />
         <option value="$PROJECT_DIR$/src/components/NofityModal.js" />
         <option value="$PROJECT_DIR$/src/components/NotifyModal.css" />
         <option value="$PROJECT_DIR$/src/components/Chatbots.js" />
         <option value="$PROJECT_DIR$/src/components/Chatbot.js" />
+        <option value="$PROJECT_DIR$/src/components/FlowDesigner.js" />
       </list>
     </option>
   </component>
@@ -316,12 +302,12 @@
       <workItem from="1505468443623" duration="7166000" />
       <workItem from="1505833153847" duration="1116000" />
       <workItem from="1505928075780" duration="17370000" />
-      <workItem from="1506066069425" duration="1871000" />
+      <workItem from="1506066069425" duration="3469000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125190000" />
+    <option name="totallyTimeSpent" value="126788000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -648,14 +634,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="20" column="66" lean-forward="false" selection-start-line="20" selection-start-column="66" selection-end-line="20" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Header.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -674,14 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/externalFunctions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/data.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -690,20 +660,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="475" column="40" lean-forward="false" selection-start-line="475" selection-start-column="28" selection-end-line="475" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/NotifyModal.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="492">
           <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="20" column="66" lean-forward="false" selection-start-line="20" selection-start-column="66" selection-end-line="20" selection-end-column="66" />
           <folding />
         </state>
       </provider>
@@ -716,20 +684,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Chatbots.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Chatbot.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="94" column="37" lean-forward="false" selection-start-line="94" selection-start-column="37" selection-end-line="94" selection-end-column="37" />
+        <state relative-caret-position="160">
+          <caret line="116" column="0" lean-forward="true" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Chatbot.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Chatbots.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="138" column="90" lean-forward="true" selection-start-line="138" selection-start-column="90" selection-end-line="138" selection-end-column="90" />
+        <state relative-caret-position="520">
+          <caret line="116" column="0" lean-forward="false" selection-start-line="116" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/externalFunctions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="15" lean-forward="false" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="363" column="24" lean-forward="false" selection-start-line="363" selection-start-column="24" selection-end-line="363" selection-end-column="24" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
