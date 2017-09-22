@@ -11,12 +11,6 @@
     width: 44%;
 }
 
-#notifyModal.undo {
-    bottom: 1px;
-    left: 15px;
-    background-color: #f9f9f9;
-}
-
 #notifyModal p {
     margin: 0;
     color: #F2994A;
@@ -31,10 +25,6 @@
     color: #ffffff;
 }
 
-#notifyModal.undo .close-icon {
-    color: #000000;
-}
-
 #notifyModal .undo-btn {
     position: absolute;
     bottom: 10px;
@@ -43,5 +33,20 @@
     cursor: pointer;
     color: #000000;
     line-height: 100%;
-    /*display: none;*/
+    visibility: hidden;
 }
+
+.FlowDesigner #notifyModal {
+    bottom: 1px;
+    left: 15px;
+    background-color: #f9f9f9;
+}
+
+.FlowDesigner #notifyModal .close-icon {
+    color: #000000;
+}
+
+.FlowDesigner #notifyModal.undo .undo-btn {
+    visibility: visible;
+}
+

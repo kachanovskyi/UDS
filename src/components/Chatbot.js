@@ -114,6 +114,8 @@ class Chatbot extends Component {
 
 
     render() {
+        console.log(this.props);
+
         if (this.props.type === "add-new") {
             return (
                 <div className="chatbot add-new">
@@ -134,7 +136,7 @@ class Chatbot extends Component {
             <div className="chatbot">
                 <div className="inner">
                     {/*<div className="bot-img" style={{backgroundColor: this.props.background, , color: getTextColor(this.props.background)}}>*/}
-                    <div className="bot-img" style={{backgroundColor: getRandomColor(), color: getTextColor("#000000")}}>
+                    <div className="bot-img" style={{backgroundColor: this.props.color, color: getTextColor("#000000")}}>
                         {this.props.name[0]}
                     </div>
                     <div className="bot-info">

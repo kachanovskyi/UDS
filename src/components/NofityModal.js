@@ -23,7 +23,7 @@ const NotifyModal = ({undo}) => {
     };
 
     return (
-        <div id="notifyModal" className="hidden undo">
+        <div id="notifyModal" className="hidden">
             <span className="close-icon" onClick={modalClose}>&#10005;</span>
             <span className="undo-btn" onClick={undoChanges}>Undo</span>
             <p className="message-text">

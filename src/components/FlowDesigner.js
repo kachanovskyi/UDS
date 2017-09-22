@@ -362,7 +362,9 @@ class FlowDesigner extends Component {
 
         function deleteNode() {
 
-            if (selectedNode) {
+            if (nodesArray[findNode(selectedNode)].parentId === null) {
+                notifyModalShow("You are not allowed to remove root element!");
+            } else if (selectedNode) {
                 console.log(nodesArray);
 
                 const data = {
@@ -400,8 +402,6 @@ class FlowDesigner extends Component {
                         console.error(error);
                     });
 
-            } else if (selectedNode === 0) {
-                alert("You are not allowed to remove root element!");
             } else {
                 alert("Select element you want to delete!");
             }

@@ -119,7 +119,7 @@ class Chatbots extends Component {
                     </Col>
                     {this.state.chatbots.map((chatbot, index) => (
                         <Col md={4} lg={3} key={index}>
-                            <Chatbot onClick="" img={chatbot.img} name={chatbot.name} telegramToken={chatbot.telegramToken}
+                            <Chatbot onClick="" color={chatbot.color} name={chatbot.name} telegramToken={chatbot.telegramToken}
                                      id={chatbot.id} nickname={chatbot.nickname} index={index}
                                      sendBotData={this.getBotData} removeBot={this.removeBot}/>
                         </Col>
