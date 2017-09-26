@@ -20,14 +20,18 @@ const Restore = () => {
         const newPass = document.getElementById('newPass').value,
             confirmPass = document.getElementById('confirmPass').value;
 
-        if(newPass === confirmPass) {
+        if (newPass === confirmPass) {
             const data = {
                 password: newPass
             };
 
-            fetch('./data.json', {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            fetch('https://udigital.botscrew.com/newpass', {
                 method: 'POST',
-                body: data
+                headers: myHeaders,
+                credentials: 'same-origin',
+                body: JSON.stringify(data)
             })
                 .then((response) => response.json())
                 .then((responseJson) => {

@@ -35,7 +35,8 @@ const Header = (props) => {
     };
 
     const logOut = () => {
-        window.location.href = '/logout';
+        // window.location.href = '/logout';
+        console.log('wpringm;f');
     };
 
     // $(document).ready(function () {
@@ -72,17 +73,17 @@ const Header = (props) => {
                     <div className="collapse navbar-collapse" id="udsNav">
                         <ul className="nav navbar-nav">
                             <li className="active menu-item" onClick={addActive}><NavLink exact to="/" className="menu-item-link" id="chatbots">
-                                <img src="images/square.svg"/>
+                                <img src="images/chatbots-icon.png"/>
                                 <span>Chatbots</span>
                             </NavLink></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/settings" id="settings">
-                                <img src="images/square.svg"/>
-                                <span>Settings</span>
-                            </NavLink></li>
+                            {/*<li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/settings" id="settings">*/}
+                                {/*<img src="images/square.svg"/>*/}
+                                {/*<span>Settings</span>*/}
+                            {/*</NavLink></li>*/}
                             <li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/logout" id="logout">
-                                <img src="images/square.svg"/>
+                                <img src="images/logout-icon.png"/>
                                 <span>Log out</span>
                             </NavLink></li>
                         </ul>

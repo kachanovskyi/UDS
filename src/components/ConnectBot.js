@@ -59,11 +59,15 @@ class ConnectBot extends Component {
         )
             .then((response) => response.json())
             .then((responseJson) => {
-                if (!responseJson.status) {
-                    const errorMessage = "Token is invalid. Please, enter another token.";
+                if (responseJson.code==="500") {
+                    const errorMessage = "Bot with such Token already exists. Please, enter another Token. ";
+                    notifyModalShow(errorMessage);
+                } 
+				if (responseJson.code==="400") {
+                    const errorMessage = "This Token is invalid . Please, enter another Token. ";
                     notifyModalShow(errorMessage);
                 }
-                if (responseJson) {
+                if (responseJson.code==="200") {
                     window.location.href = '/';
                 }
             })

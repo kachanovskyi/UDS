@@ -21,15 +21,24 @@ const Restore = () => {
 
         console.log(data);
 
-        fetch('./chatbots.json', {
+        	var myHeaders = new Headers();
+			myHeaders.append("Content-Type", "application/json");
+			fetch('https://udigital.botscrew.com/restore-password', {
             method: 'POST',
-            body: data
+			headers: myHeaders,
+				credentials: 'same-origin',
+            body: JSON.stringify(data)
         })
-            .then((response) => response.json())
+           .then((response) => response.json())
             .then((responseJson) => {
 
-                notification = "Link for password restoration was sent to your email.";
-                notifyModalShow(notification);
+                if ((responseJson.logged === true)) {
+                          const Message = "Link for password restoration was sent to your email.";
+						notifyModalShow(Message);
+                    } else {
+                        const errorMessage = "Link for password restoration was sent to your email.";
+                        notifyModalShow(errorMessage);
+                    }
 
             })
             .catch((error) => {

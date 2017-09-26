@@ -93,6 +93,8 @@ class Chatbot extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
 
+                $bot.find('.bot-name').text(newName);
+
                 let chatbots = [];
 
                 responseJson.forEach(item => {
@@ -100,7 +102,7 @@ class Chatbot extends Component {
                 });
 
                 this.setState({
-                    chatbots
+                    chatbots: chatbots
                 });
 
             })
@@ -119,9 +121,6 @@ class Chatbot extends Component {
             return (
                 <div className="chatbot add-new">
                     <NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>
-                    {/*<div className="inner">*/}
-                        {/*<NavButton className="bot-connect" text="+ Create new bot" goTo={'/create-bot'}/>*/}
-                    {/*</div>*/}
                 </div>
             )
         }

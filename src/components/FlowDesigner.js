@@ -17,7 +17,7 @@ class FlowDesigner extends Component {
         this.deletedNodes = [];
 
         this.draw = this.draw.bind(this);
-        this.redo = this.redo.bind(this);
+        this.undo = this.undo.bind(this);
     };
 
     componentDidMount() {
@@ -233,6 +233,31 @@ class FlowDesigner extends Component {
             selectedNode = editableNode = null;
         }
 
+        function insertNode(selectedNode, elemId) {
+            const modifyArray = nodesArray.filter(function (element) {
+                return (element.parentId === selectedNode) && (element.id !== elemId);
+            });
+
+            const edgesToRemove = [];
+            modifyArray.forEach(function (item) {
+                const elem = edgesArray.filter(function (element) {
+                    return ( (element.to === selectedNode) || (element.from === selectedNode) ) &&
+                        ( (element.to === item.id) || (element.from === item.id) );
+                })[0];
+
+                edgesToRemove.push(elem);
+            });
+
+            edgesToRemove.forEach(function (item) {
+                edgesArray.splice(findEdge(item.id), 1);
+            });
+
+            modifyArray.forEach(function (item) {
+                nodesArray[findNode(item.id)].parentId = elemId;
+                edgesArray.push({from: elemId, to: item.id});
+            });
+        }
+
         function addNode(type) {
             let typeColor,
                 label = msgInput.val();
@@ -247,9 +272,9 @@ class FlowDesigner extends Component {
 
             if (selectedNode || selectedNode === 0) {
                 const elemId = "tempID" + Math.floor((Math.random() * 100000) + 1);
-                // selectedNodeLevel = nodes[findNode(selectedNode)]["level"]
 
                 if (!ifStringEmpty(label)) {
+
                     nodesArray.push({
                         id: elemId,
                         widthConstraint: 200,
@@ -259,7 +284,6 @@ class FlowDesigner extends Component {
                         parentId: selectedNode,
                         title: 'double click to edit'
                     });
-                    // nodes[findNode(elemId)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
 
                     const myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
@@ -282,12 +306,31 @@ class FlowDesigner extends Component {
                         .then((responseJson) => {
 
                             nodesArray[findNode(elemId)].id = responseJson;
-                            // nodes[findNode(responseJson)]["level"] = parseInt(selectedNodeLevel, 10) + 1;
-                            edgesArray.push({from: nodesArray[findNode(responseJson)].parentId, to: responseJson});
-                            updateNetwork();
 
-                            console.log(network.getPositions([responseJson]));
-                            network.moveTo(network.getPositions([responseJson]));
+                            if(type === "MESSAGE") {
+
+                                insertNode(selectedNode, responseJson);
+
+                            } else if( (type === "BUTTON") && (findNodeIdByParentId(selectedNode) !== -1) ) {
+
+                                 let msgChild = false;
+
+                                 const childrenArr = nodesArray.filter(function (element) {
+                                     if ( (element.parentId === selectedNode) && (element.type === "MESSAGE") ) {
+                                         msgChild = true;
+                                     }
+                                     return element.parentId === selectedNode;
+                                 });
+
+                                 if(msgChild) {
+                                     insertNode(selectedNode, responseJson);
+                                 }
+
+                            }
+
+                            edgesArray.push({from: nodesArray[findNode(responseJson)].parentId, to: responseJson});
+
+                            updateNetwork();
 
                             selectedNode = null;
                             $('#messageInput').val("");
@@ -297,10 +340,10 @@ class FlowDesigner extends Component {
                         });
 
                 } else {
-                    alert('Message or button title can not be empty');
+                    notifyModalShow("Message or button title can not be empty");
                 }
             } else {
-                alert("Select parent element first!");
+                notifyModalShow("Select parent element first!");
             }
         }
 
@@ -315,58 +358,26 @@ class FlowDesigner extends Component {
 
         $('#saveBtn').on("click", saveLabel);
 
-        // function findNodeIdByParentId(parentId) {
-        //     const item = nodesArray.find(item => item.parentId === parentId);
-        //
-        //     if (item !== undefined) {
-        //         return item.id;
-        //     }
-        //     return -1;
-        // }
+        function findNodeIdByParentId(parentId) {
+            const item = nodesArray.find(item => item.parentId === parentId);
+
+            if (item !== undefined) {
+                return item.id;
+            }
+            return -1;
+        }
 
         function findNode(id) {
             const item = nodesArray.find(item => item.id === id);
             return nodesArray.indexOf(item);
         }
 
-        // function removeNode(id) {
-        //     const nodeIndex = findNode(id);
-        //
-        //     deletedNodes.push(nodesArray[nodeIndex]);
-        //     nodesArray.splice(nodeIndex, 1);
-        // }
-
-        // function redo() {
-        //
-        //     const data = {
-        //         deletedNodes
-        //     };
-        //
-        //     const myHeaders = new Headers();
-        //     myHeaders.append("Content-Type", "application/json");
-        //
-        //     fetch('https://udigital.botscrew.com/undo', {
-        //         method: 'POST',
-        //         headers: myHeaders,
-        //         credentials: 'same-origin',
-        //         body: JSON.stringify(data)
-        //     })
-        //         .then((response) => response.json())
-        //         .then((responseJson) => {
-        //             console.log(responseJson);
-        //             buildFlow(responseJson, true);
-        //         })
-        //         .catch((error) => {
-        //             console.error(error);
-        //         });
-        // }
+        function findEdge(id) {
+            const item = edgesArray.find(item => item.id === id);
+            return edgesArray.indexOf(item);
+        }
 
         function deleteNode() {
-
-            console.log(nodesArray);
-            console.log(nodes);
-            console.log(selectedNode);
-            console.log(findNode(selectedNode));
 
             if (nodesArray[findNode(selectedNode)].parentId === null) {
                 notifyModalShow("You are not allowed to remove root element!");
@@ -451,7 +462,7 @@ class FlowDesigner extends Component {
     //     this.cancelRename($bot);
     // }
 
-    redo() {
+    undo() {
         const self = this;
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -466,6 +477,8 @@ class FlowDesigner extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
+
+                console.log(responseJson);
 
                 self.draw(responseJson);
 
@@ -491,7 +504,7 @@ class FlowDesigner extends Component {
                 </div>
 
                 <div id="flowDesigner"/>
-                <NotifyModal undo={this.redo}/>
+                <NotifyModal undo={this.undo}/>
             </div>
         )
     }
