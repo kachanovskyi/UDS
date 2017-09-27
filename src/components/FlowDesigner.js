@@ -16,6 +16,10 @@ class FlowDesigner extends Component {
         this.botId = null;
         this.deletedNodes = [];
 
+        this.state = {
+            nodes: []
+        };
+
         this.draw = this.draw.bind(this);
         this.undo = this.undo.bind(this);
     };
@@ -45,7 +49,7 @@ class FlowDesigner extends Component {
             });
     }
 
-    draw(flow) {
+    draw(flow, param) {
 
         const self = this;
 
@@ -75,6 +79,8 @@ class FlowDesigner extends Component {
         function buildFlow(flow, rebuild) {
             nodesArray = [];
             edgesArray = [];
+
+            const flowToBuild = param ? [...self.state.nodes] : [...flow];
 
             flow.forEach(function (node) {
 
@@ -107,6 +113,10 @@ class FlowDesigner extends Component {
                     edges = new vis.DataSet(edgesArray);
                 }
             });
+
+            self.setState({
+                nodes: [...nodesArray]
+            });
         }
         buildFlow(flow);
 
@@ -132,7 +142,6 @@ class FlowDesigner extends Component {
                 },
                 color: {
                     highlight: {
-//                                border: '#2B7CE9',
                         background: '#D78536'
                     },
                     hover: {
@@ -141,11 +150,6 @@ class FlowDesigner extends Component {
                 }
             },
             edges: {
-//                        smooth: {
-//                            type: 'vertical',
-//                            forceDirection: 'vertical',
-//                            roundness: 1
-//                        },
                 color: {
                     color: "#BDBDBD"
                 }
@@ -165,11 +169,6 @@ class FlowDesigner extends Component {
             }
         };
         network = new vis.Network(container, data, options);
-
-        // add event listeners
-        network.on('select', function (params) {
-
-        });
 
         network.on("click", selectNode);
         network.on("doubleClick", getLabel);
@@ -379,6 +378,13 @@ class FlowDesigner extends Component {
 
         function deleteNode() {
 
+            console.log(selectedNode);
+            console.log(nodesArray);
+            nodesArray = [];
+            nodesArray = [...self.state.nodes];
+            console.log(findNode(selectedNode));
+            console.log(network.body.nodes);
+
             if (nodesArray[findNode(selectedNode)].parentId === null) {
                 notifyModalShow("You are not allowed to remove root element!");
             } else if (selectedNode) {
@@ -467,8 +473,6 @@ class FlowDesigner extends Component {
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
-        console.log(this.state.deletedNodes);
-
         fetch('https://udigital.botscrew.com/undo', {
             method: 'POST',
             headers: myHeaders,
@@ -480,7 +484,13 @@ class FlowDesigner extends Component {
 
                 console.log(responseJson);
 
-                self.draw(responseJson);
+                self.setState({
+                    nodes: responseJson
+                });
+
+                console.log(self.state.nodes);
+
+                self.draw(responseJson, true);
 
             })
             .catch((error) => {

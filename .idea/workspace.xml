@@ -2,42 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="148849d7-312b-42ee-a565-c5dec8b9d1c0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Conversations.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Conversations.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Dashboard.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Dashboard.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Users.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/components/Users.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.test.js" afterPath="$PROJECT_DIR$/src/App.test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbot.css" afterPath="$PROJECT_DIR$/src/components/Chatbot.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbot.js" afterPath="$PROJECT_DIR$/src/components/Chatbot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbots.css" afterPath="$PROJECT_DIR$/src/components/Chatbots.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Chatbots.js" afterPath="$PROJECT_DIR$/src/components/Chatbots.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ConnectBot.css" afterPath="$PROJECT_DIR$/src/components/ConnectBot.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ConnectBot.js" afterPath="$PROJECT_DIR$/src/components/ConnectBot.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/CustomDropdown.css" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/CustomDropdown.js" afterPath="$PROJECT_DIR$/src/components/CustomDropdown.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/DashNumber.css" afterPath="$PROJECT_DIR$/src/components/DashNumber.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/DashNumber.js" afterPath="$PROJECT_DIR$/src/components/DashNumber.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/FlowDesigner.css" afterPath="$PROJECT_DIR$/src/components/FlowDesigner.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/FlowDesigner.js" afterPath="$PROJECT_DIR$/src/components/FlowDesigner.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/ForgotPassword.js" afterPath="$PROJECT_DIR$/src/components/ForgotPassword.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Header.css" afterPath="$PROJECT_DIR$/src/components/Header.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Header.js" afterPath="$PROJECT_DIR$/src/components/Header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Login.css" afterPath="$PROJECT_DIR$/src/components/Login.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Main.js" afterPath="$PROJECT_DIR$/src/components/Main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NavButton.css" afterPath="$PROJECT_DIR$/src/components/NavButton.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NavButton.js" afterPath="$PROJECT_DIR$/src/components/NavButton.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NofityModal.js" afterPath="$PROJECT_DIR$/src/components/NofityModal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NotifyModal.css" afterPath="$PROJECT_DIR$/src/components/NotifyModal.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/RestorePassword.js" afterPath="$PROJECT_DIR$/src/components/RestorePassword.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/containers/App.css" afterPath="$PROJECT_DIR$/src/containers/App.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/externalFunctions.js" afterPath="$PROJECT_DIR$/src/externalFunctions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.css" afterPath="$PROJECT_DIR$/src/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/logo.svg" afterPath="$PROJECT_DIR$/src/logo.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/registerServiceWorker.js" afterPath="$PROJECT_DIR$/src/registerServiceWorker.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -92,8 +57,8 @@
       <file leaf-file-name="FlowDesigner.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="327" column="0" lean-forward="true" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
+            <state relative-caret-position="66">
+              <caret line="197" column="30" lean-forward="true" selection-start-line="197" selection-start-column="30" selection-end-line="197" selection-end-column="30" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -177,7 +142,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>random</find>
       <find>buildFlow</find>
       <find>save</find>
       <find>nodes</find>
@@ -207,6 +171,7 @@
       <find>addNod</find>
       <find>addNode</find>
       <find>addActive</find>
+      <find>undo</find>
     </findStrings>
     <replaceStrings>
       <replace>className</replace>
@@ -276,8 +241,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -386,12 +353,12 @@
       <workItem from="1506066069425" duration="3566000" />
       <workItem from="1506073282777" duration="6578000" />
       <workItem from="1506091568267" duration="1069000" />
-      <workItem from="1506420833978" duration="9890000" />
+      <workItem from="1506420833978" duration="16247000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144422000" />
+    <option name="totallyTimeSpent" value="150779000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -630,6 +597,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="343" column="16" lean-forward="false" selection-start-line="343" selection-start-column="16" selection-end-line="343" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -766,8 +734,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/FlowDesigner.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="327" column="0" lean-forward="true" selection-start-line="327" selection-start-column="0" selection-end-line="327" selection-end-column="0" />
+        <state relative-caret-position="66">
+          <caret line="197" column="30" lean-forward="true" selection-start-line="197" selection-start-column="30" selection-end-line="197" selection-end-column="30" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
