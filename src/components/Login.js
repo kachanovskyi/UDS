@@ -60,7 +60,7 @@ const Login = ({logIn}) => {
                                required/>
                         <div className="password-container">
                             <input type="password" name="password" id="inputPass" placeholder="Password" required/>
-                            <img src="images/eye-icon.svg" onMouseDown={displayPass} onMouseUp={hidePass}
+                            <img src="images/eye-icon.svg" alt="icon for pass displaying" onMouseDown={displayPass} onMouseUp={hidePass}
                                  onMouseOut={hidePass}/>
                         </div>
                         <a href="/forgot-password" className="restore-btn">Forgot password?</a>

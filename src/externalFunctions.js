@@ -2,9 +2,11 @@ import $ from 'jquery';
 
 export const notifyModalShow = (message, type) => {
     const notifyModal = $('#notifyModal');
+    let timeout = 1000;
 
     if(type === "undo") {
         notifyModal.addClass('undo');
+        timeout = 200000;
     }
 
     let notifyModalTimeout;
@@ -29,7 +31,7 @@ export const notifyModalShow = (message, type) => {
         }, 333, () => {
             $(this).addClass('hidden');
         });
-    }, 200000);
+    }, timeout);
 };
 
 export const displayPass = ({target}) => {
@@ -73,4 +75,8 @@ export const getTextColor = (hex) => {
     const back = 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')';
 
     return fore;
+};
+
+export const ifStringEmpty = (text) => {
+    return (text.length === 0 && !text.trim());
 };

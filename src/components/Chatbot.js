@@ -3,7 +3,9 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import './Chatbot.css';
 
-import {getRandomColor, getTextColor} from '../externalFunctions';
+import {getRandomColor, getTextColor, ifStringEmpty} from '../externalFunctions';
+import {notifyModalShow} from '../externalFunctions';
+import NotifyModal from './NofityModal';
 import CustomDropdown from './CustomDropdown';
 import NavButton from './NavButton';
 import $ from 'jquery';
@@ -51,13 +53,13 @@ class Chatbot extends Component {
             })
             .removeClass('hidden')
             .focus();
-        $bot.find('.save-btn').removeClass('hidden');
+        $bot.find('.save-btn, .cancel-btn').removeClass('hidden');
     }
 
 
     cancelRename($bot) {
         $bot.find('.rename-bot').addClass('hidden');
-        $bot.find('.save-btn').addClass('hidden');
+        $bot.find('.save-btn, .cancel-btn').addClass('hidden');
         $bot.find('.bot-info').removeClass('hidden');
     }
 
@@ -75,45 +77,49 @@ class Chatbot extends Component {
         const $bot = $($('.chatbot')[this.props.index + 1]);
         const newName = $bot.find('.rename-bot').val();
 
-        const data = {
-            botId: this.props.id,
-            name: newName
-        };
+        if(ifStringEmpty(newName)) {
+            notifyModalShow("You should give chatbot a name");
+        } else {
 
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+            const data = {
+                botId: this.props.id,
+                name: newName
+            };
 
-        fetch('https://udigital.botscrew.com/rename', {
-                method: 'POST',
-                headers: myHeaders,
-                credentials: 'same-origin',
-                body: JSON.stringify(data)
-            }
-        )
-            .then((response) => response.json())
-            .then((responseJson) => {
+            const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-                $bot.find('.bot-name').text(newName);
+            fetch('https://udigital.botscrew.com/rename', {
+                    method: 'POST',
+                    headers: myHeaders,
+                    credentials: 'same-origin',
+                    body: JSON.stringify(data)
+                }
+            )
+                .then((response) => response.json())
+                .then((responseJson) => {
 
-                let chatbots = [];
+                    $bot.find('.bot-name').text(newName);
 
-                responseJson.forEach(item => {
-                    chatbots.push(item);
+                    let chatbots = [];
+
+                    responseJson.forEach(item => {
+                        chatbots.push(item);
+                    });
+
+                    this.setState({
+                        chatbots: chatbots
+                    });
+
+                })
+                .catch((error) => {
+                    console.error(error);
                 });
 
-                this.setState({
-                    chatbots: chatbots
-                });
+            this.cancelRename($bot);
 
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-        this.cancelRename($bot);
+        }
     }
-
-
 
     render() {
 
@@ -133,15 +139,13 @@ class Chatbot extends Component {
         return (
             <div className="chatbot">
                 <div className="inner">
-                    {/*<div className="bot-img" style={{backgroundColor: this.props.background, , color: getTextColor(this.props.background)}}>*/}
-                    <div className="bot-img" style={{backgroundColor: this.props.color, color: getTextColor("#000000")}}>
+                    <div className="bot-img" style={{backgroundColor: this.props.color, color: getTextColor(this.props.color)}}>
                         {this.props.name[0]}
                     </div>
                     <div className="bot-info">
-                        {/*<p className="bot-name">{this.props.name}</p>*/}
                         <div>
                             <NavButton className="bot-name" text={this.props.name}
-                                       goTo={'/flow-designer/' + this.props.id}/>
+                                       goTo={`/flow-designer/${this.props.id}/${this.props.name}/${this.props.nickname}`}/>
                         </div>
                         {this.props.telegramToken ? nickname : connectBot}
                     </div>
@@ -151,8 +155,10 @@ class Chatbot extends Component {
                                                     duplicate={this.duplicate}
                                                     rename={this.rename} deleteBot={this.props.removeBot}/>
                             </span>
+                    <a className="cancel-btn hidden" onClick={this.cancelRenameAll}>Cancel</a>
                     <a className="save-btn hidden" onClick={this.saveName}>Save</a>
                 </div>
+                <NotifyModal/>
             </div>
         )
     }

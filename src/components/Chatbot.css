@@ -76,7 +76,8 @@
     color: #ffffff;
 }
 
-.chatbot .save-btn {
+.chatbot .save-btn,
+.chatbot .cancel-btn {
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -84,6 +85,10 @@
     color: #2D9CDB;
     font-size: 14px;
     line-height: 100%;
+}
+
+.chatbot .cancel-btn {
+    right: 155px;
 }
 
 .chatbot .rename-bot {

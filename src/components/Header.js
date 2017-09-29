@@ -34,11 +34,6 @@ const Header = (props) => {
 
     };
 
-    const logOut = () => {
-        // window.location.href = '/logout';
-        console.log('wpringm;f');
-    };
-
     // $(document).ready(function () {
     //
     //     $('nav li > a').on('click', addActive);

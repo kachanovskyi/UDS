@@ -3,7 +3,6 @@ import { Redirect } from 'react-router'
 import { withRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import {Col} from 'react-bootstrap';
 
 import Header from '../components/Header';
 import Main from '../components/Main';
@@ -71,9 +70,7 @@ class App extends Component {
         return (
             <div className="container-fluid">
                 <div className="row">
-                    <Col xs={12}>
-                        {inner}
-                    </Col>
+                    {inner}
                 </div>
             </div>
         )

@@ -5,6 +5,7 @@ import './FlowDesigner.css';
 
 import {notifyModalShow} from '../externalFunctions';
 import NotifyModal from './NofityModal';
+import NavButton from './NavButton';
 import $ from 'jquery';
 import vis from 'vis';
 import visStyles from 'vis/dist/vis.css';
@@ -13,11 +14,14 @@ class FlowDesigner extends Component {
 
     constructor() {
         super();
-        this.botId = null;
-        this.deletedNodes = [];
+        // this.deletedNodes = [];
 
         this.state = {
-            nodes: []
+            botId: null,
+            botName: null,
+            botNickname: null,
+            nodes: [],
+            deletedNodes: []
         };
 
         this.draw = this.draw.bind(this);
@@ -25,9 +29,14 @@ class FlowDesigner extends Component {
     };
 
     componentDidMount() {
-        // this.loadData();
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
+
+        this.setState({
+            botId: this.props.match.params.botId,
+            botName: this.props.match.params.botName,
+            botNickname: this.props.match.params.botNickname
+        });
 
         const data = {
             "botId": this.props.match.params.botId
@@ -41,7 +50,6 @@ class FlowDesigner extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
-
                 this.draw(responseJson);
             })
             .catch((error) => {
@@ -61,37 +69,34 @@ class FlowDesigner extends Component {
         let selectedNode = null,
             editableNode = null;
 
-        let deletedNodes = [],
-            nodesArray = [],
+        let nodesArray = [],
             edgesArray = [];
 
         let botId = null;
 
         function destroy() {
             if (network !== null) {
-                console.log('network set to null!');
                 network.destroy();
                 network = null;
             }
         }
+
         destroy();
 
         function buildFlow(flow, rebuild) {
             nodesArray = [];
             edgesArray = [];
 
-            const flowToBuild = param ? [...self.state.nodes] : [...flow];
-
             flow.forEach(function (node) {
 
                 let color = "#E0E0E0";
                 let level = null;
 
-                if(node.parentId === null) {
+                if (node.parentId === null) {
                     color = "#F2994A";
                     level = 0;
                     botId = node.botId;
-                } else if(node.type === "BUTTON") {
+                } else if (node.type === "BUTTON") {
                     color = "#2D9CDB";
                 }
 
@@ -106,7 +111,11 @@ class FlowDesigner extends Component {
                 });
                 edgesArray.push({from: node.parentId, to: node.id});
 
-                if(rebuild) {
+                self.setState({
+                    nodes: nodesArray
+                });
+
+                if (rebuild) {
                     updateNetwork();
                 } else {
                     nodes = new vis.DataSet(nodesArray);
@@ -115,9 +124,10 @@ class FlowDesigner extends Component {
             });
 
             self.setState({
-                nodes: [...nodesArray]
+                nodes: nodesArray
             });
         }
+
         buildFlow(flow);
 
         // create a network
@@ -197,6 +207,8 @@ class FlowDesigner extends Component {
 
         function saveLabel() {
             const label = msgInput.val();
+            // .replace(/(\w{20})(?=\w)/g, '$1 ');
+            console.log(label);
 
             if ((editableNode || editableNode === 0) && (!ifStringEmpty(label))) {
                 nodesArray[findNode(editableNode)].label = label;
@@ -215,10 +227,10 @@ class FlowDesigner extends Component {
                     credentials: 'same-origin',
                     body: JSON.stringify(data)
                 })
-                    .then((response) => response.json())
-                    .then((responseJson) => {
-                        // console.log('element edited', responseJson);
-                    })
+                // .then((response) => response.json())
+                // .then((responseJson) => {
+                //     // console.log('element edited', responseJson);
+                // })
                     .catch((error) => {
                         console.error(error);
                     });
@@ -260,6 +272,7 @@ class FlowDesigner extends Component {
         function addNode(type) {
             let typeColor,
                 label = msgInput.val();
+            // .replace(/(\w{20})(?=\w)/g, '$1 ');
 
             if (type === "btn") {
                 typeColor = "#2D9CDB";
@@ -288,11 +301,11 @@ class FlowDesigner extends Component {
                     myHeaders.append("Content-Type", "application/json");
 
                     const data = {
-                        "bot_id":botId,
-                        "type":type,
+                        "bot_id": botId,
+                        "type": type,
                         "title": label,
                         "parent_flow_id": selectedNode,
-                        "active":true
+                        "active": true
                     };
 
                     fetch('https://udigital.botscrew.com/create-element', {
@@ -306,28 +319,32 @@ class FlowDesigner extends Component {
 
                             nodesArray[findNode(elemId)].id = responseJson;
 
-                            if(type === "MESSAGE") {
+                            if (type === "MESSAGE") {
 
                                 insertNode(selectedNode, responseJson);
 
-                            } else if( (type === "BUTTON") && (findNodeIdByParentId(selectedNode) !== -1) ) {
+                            } else if ((type === "BUTTON") && (findNodeIdByParentId(selectedNode) !== -1)) {
 
-                                 let msgChild = false;
+                                let msgChild = false;
 
-                                 const childrenArr = nodesArray.filter(function (element) {
-                                     if ( (element.parentId === selectedNode) && (element.type === "MESSAGE") ) {
-                                         msgChild = true;
-                                     }
-                                     return element.parentId === selectedNode;
-                                 });
+                                nodesArray.filter(function (element) {
+                                    if ((element.parentId === selectedNode) && (element.type === "MESSAGE")) {
+                                        msgChild = true;
+                                    }
+                                    return element.parentId === selectedNode;
+                                });
 
-                                 if(msgChild) {
-                                     insertNode(selectedNode, responseJson);
-                                 }
+                                if (msgChild) {
+                                    insertNode(selectedNode, responseJson);
+                                }
 
                             }
 
                             edgesArray.push({from: nodesArray[findNode(responseJson)].parentId, to: responseJson});
+
+                            self.setState({
+                                nodes: nodesArray
+                            });
 
                             updateNetwork();
 
@@ -382,6 +399,7 @@ class FlowDesigner extends Component {
             console.log(nodesArray);
             nodesArray = [];
             nodesArray = [...self.state.nodes];
+            console.log(nodesArray);
             console.log(findNode(selectedNode));
             console.log(network.body.nodes);
 
@@ -432,42 +450,6 @@ class FlowDesigner extends Component {
 
     }
 
-
-    // saveName() {
-    //     const $bot = $($('.chatbot')[this.props.index + 1]);
-    //     const newName = $bot.find('.rename-bot').val();
-    //
-    //     const data = {
-    //         botId: this.props.id,
-    //         name: newName
-    //     };
-    //
-    //     fetch('./chatbots.json', {
-    //             method: 'POST',
-    //             body: data
-    //         }
-    //     )
-    //         .then((response) => response.json())
-    //         .then((responseJson) => {
-    //
-    //             let chatbots = [];
-    //
-    //             responseJson.forEach(item => {
-    //                 chatbots.push(item);
-    //             });
-    //
-    //             this.setState({
-    //                 chatbots
-    //             });
-    //
-    //         })
-    //         .catch((error) => {
-    //             console.error(error);
-    //         });
-    //
-    //     this.cancelRename($bot);
-    // }
-
     undo() {
         const self = this;
         const myHeaders = new Headers();
@@ -482,13 +464,9 @@ class FlowDesigner extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
 
-                console.log(responseJson);
-
                 self.setState({
                     nodes: responseJson
                 });
-
-                console.log(self.state.nodes);
 
                 self.draw(responseJson, true);
 
@@ -499,14 +477,25 @@ class FlowDesigner extends Component {
     }
 
     render() {
+
+        const nickname = this.state.botNickname === "null" ? <NavButton className="bot-connect" text="Connect to telegram"
+                       goTo={'/connect-bot/' + this.state.botId} img="images/link-icon.svg"/> :
+            <a className="bot-connect text-underlined">{this.state.botNickname}</a>;
+
         return (
             <div className="FlowDesigner">
-                <div className="btn-container">
+                <div className="top">
+                    <div className="bot-info">
+                        <p className="bot-name">{this.state.botName}</p>
+                        {nickname}
+                    </div>
                     <div className="input-container">
-                        <input id="messageInput" placeholder="Enter your message here..."/>
+                        <div data-tip="URL link should be added as separate message block">
+                            <textarea id="messageInput" placeholder="Enter your message here..."></textarea>
+                        </div>
                         <button id="saveBtn">Save</button>
                     </div>
-                    <div>
+                    <div className="input-container">
                         <button id="addMessage">Add message</button>
                         <button id="addButton">Add button</button>
                         <button id="delete">Delete</button>
@@ -515,6 +504,7 @@ class FlowDesigner extends Component {
 
                 <div id="flowDesigner"/>
                 <NotifyModal undo={this.undo}/>
+
             </div>
         )
     }

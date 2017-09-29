@@ -35,7 +35,7 @@ nav > ul > li:last-child {
 }
 
 .navbar.navbar-default {
-    padding: 0 45px;
+    padding: 0 30px;
     background-color: #ffffff;
     overflow: hidden;
 }
@@ -75,4 +75,10 @@ nav > ul > li:last-child {
 }
 .navbar-default .navbar-nav > li.active:hover > a {
     color: #F2995E !important;
+}
+
+@media (max-width: 991px) {
+    .navbar.navbar-default {
+        padding: 0;
+    }
 }
