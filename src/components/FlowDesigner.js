@@ -57,7 +57,7 @@ class FlowDesigner extends Component {
             });
     }
 
-    draw(flow, param) {
+    draw(flow) {
 
         const self = this;
 
@@ -66,7 +66,7 @@ class FlowDesigner extends Component {
         let nodes = null,
             edges = null;
         let network = null;
-        let selectedNode = null,
+        let selectedNode,
             editableNode = null;
 
         let nodesArray = [],
@@ -131,6 +131,7 @@ class FlowDesigner extends Component {
         buildFlow(flow);
 
         // create a network
+        $('#flowDesigner').empty();
         let container = document.getElementById('flowDesigner');
         let data = {
             nodes: nodes,
@@ -185,6 +186,7 @@ class FlowDesigner extends Component {
 
         function selectNode(params) {
             selectedNode = params.nodes[0];
+            console.log(`Selected node: ${selectedNode}`);
         }
 
         function getLabel(params) {
@@ -270,6 +272,8 @@ class FlowDesigner extends Component {
         }
 
         function addNode(type) {
+
+            console.log('adding node');
             let typeColor,
                 label = msgInput.val();
             // .replace(/(\w{20})(?=\w)/g, '$1 ');
@@ -296,6 +300,7 @@ class FlowDesigner extends Component {
                         parentId: selectedNode,
                         title: 'double click to edit'
                     });
+                    console.log(nodesArray);
 
                     const myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
@@ -308,6 +313,8 @@ class FlowDesigner extends Component {
                         "active": true
                     };
 
+                    console.log(data);
+
                     fetch('https://udigital.botscrew.com/create-element', {
                         method: 'POST',
                         headers: myHeaders,
@@ -316,6 +323,8 @@ class FlowDesigner extends Component {
                     })
                         .then((response) => response.json())
                         .then((responseJson) => {
+
+                            console.log(responseJson);
 
                             nodesArray[findNode(elemId)].id = responseJson;
 
@@ -363,16 +372,23 @@ class FlowDesigner extends Component {
             }
         }
 
-        $('#addMessage').on("click", function () {
-            addNode('msg');
-        });
-        $('#addButton').on("click", function () {
-            addNode('btn');
-        });
 
-        $('#delete').on("click", deleteNode);
+        $('#addMessage')
+            .off('click')
+            .on("click", function () {
+                addNode('msg');
+            });
+        $('#addButton')
+            .off('click')
+            .on("click", function () {
+                addNode('btn');
+            });
 
-        $('#saveBtn').on("click", saveLabel);
+        $('#delete').off("click")
+            .on("click", deleteNode);
+
+        $('#saveBtn').off("click")
+            .on("click", saveLabel);
 
         function findNodeIdByParentId(parentId) {
             const item = nodesArray.find(item => item.parentId === parentId);
@@ -395,13 +411,12 @@ class FlowDesigner extends Component {
 
         function deleteNode() {
 
-            console.log(selectedNode);
-            console.log(nodesArray);
             nodesArray = [];
             nodesArray = [...self.state.nodes];
             console.log(nodesArray);
+            console.log(selectedNode);
             console.log(findNode(selectedNode));
-            console.log(network.body.nodes);
+            console.log(network.body);
 
             if (nodesArray[findNode(selectedNode)].parentId === null) {
                 notifyModalShow("You are not allowed to remove root element!");
@@ -478,7 +493,8 @@ class FlowDesigner extends Component {
 
     render() {
 
-        const nickname = this.state.botNickname === "null" ? <NavButton className="bot-connect" text="Connect to telegram"
+        const nickname = this.state.botNickname === "null" ?
+            <NavButton className="bot-connect" text="Connect to telegram"
                        goTo={'/connect-bot/' + this.state.botId} img="images/link-icon.svg"/> :
             <a className="bot-connect text-underlined">{this.state.botNickname}</a>;
 
@@ -495,7 +511,7 @@ class FlowDesigner extends Component {
                         </div>
                         <button id="saveBtn">Save</button>
                     </div>
-                    <div className="input-container">
+                    <div className="input-container buttons">
                         <button id="addMessage">Add message</button>
                         <button id="addButton">Add button</button>
                         <button id="delete">Delete</button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
 import './Header.css';
 import {NavLink, withRouter} from 'react-router-dom';
 
@@ -18,8 +19,6 @@ const Header = (props) => {
 
         const $target = $(target);
         $target.closest('.menu-item').addClass('active');
-
-        console.log($.contains($('.menu-item'), $target));
 
         // if($('.menu-item').contains($target)) {
         //     console.log($('.menu-item'));
@@ -68,17 +67,17 @@ const Header = (props) => {
                     <div className="collapse navbar-collapse" id="udsNav">
                         <ul className="nav navbar-nav">
                             <li className="active menu-item" onClick={addActive}><NavLink exact to="/" className="menu-item-link" id="chatbots">
-                                <img src="images/chatbots-icon.png"/>
+                                <i className="fa fa-comment-o"/>
                                 <span>Chatbots</span>
+                            </NavLink></li>
+                            <li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/users" id="users">
+                                <i className="fa fa-users"/>
+                                <span>Users</span>
                             </NavLink></li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            {/*<li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/settings" id="settings">*/}
-                                {/*<img src="images/square.svg"/>*/}
-                                {/*<span>Settings</span>*/}
-                            {/*</NavLink></li>*/}
                             <li className="menu-item" onClick={addActive}><NavLink className="menu-item-link" to="/logout" id="logout">
-                                <img src="images/logout-icon.png"/>
+                                <i className="fa fa-sign-out"/>
                                 <span>Log out</span>
                             </NavLink></li>
                         </ul>

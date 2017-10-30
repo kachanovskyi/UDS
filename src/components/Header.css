@@ -60,6 +60,12 @@ nav > ul > li:last-child {
 .navbar li > .menu-item-link img {
     margin-right: 6px;
 }
+
+.navbar li > .menu-item-link i {
+    margin-right: 6px;
+    font-size: 14px;
+}
+
 .navbar li > .menu-item-link span {
     vertical-align: middle;
 }

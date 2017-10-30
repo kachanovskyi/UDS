@@ -30,6 +30,10 @@
     background-color: #F9F9F9;
 }
 
+.FlowDesigner .bot-info {
+    max-width: 22%;
+}
+
 .FlowDesigner .bot-name {
     display: inline-block;
     margin-right: 20px;
@@ -66,10 +70,27 @@
     resize: none;
     height: 100%;
     outline-color: #F2994A;
+    width: 100%;
 }
 
 .FlowDesigner .vis-button {
     background-color: #F2994A;
+}
+
+.FlowDesigner .input-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+.FlowDesigner .input-container.buttons {
+    width: 27%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.FlowDesigner .input-container [data-tip] {
+    width: 400px;
+    max-width: calc(100% - 100px);
 }
 
 
